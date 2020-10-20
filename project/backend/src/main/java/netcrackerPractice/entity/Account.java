@@ -1,20 +1,19 @@
-package netcrackerPractice;
+package netcrackerPractice.entity;
+
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "accounts")
+@NoArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String username;
     private String password;
     private String email;
-
-    public Account() {
-    }
 
     public Account(String username, String password, String email) {
         this.username = username;
@@ -30,21 +29,5 @@ public class Account {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }
