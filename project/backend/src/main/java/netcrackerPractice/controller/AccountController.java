@@ -1,6 +1,6 @@
 package netcrackerPractice.controller;
 
-import Dto.AccountDto;
+import netcrackerPractice.Dto.AccountDto;
 import netcrackerPractice.service.AccountService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
