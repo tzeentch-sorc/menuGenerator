@@ -2,6 +2,7 @@ package netcrackerPractice.controller;
 
 import Dto.AccountDto;
 import netcrackerPractice.service.AccountService;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AccountController {
     private final AccountService accountService;
+    private final Mapper mapper;
 
     @Autowired
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService, Mapper mapper) {
+        this.mapper = mapper;
         this.accountService = accountService;
     }
 
@@ -21,7 +24,7 @@ public class AccountController {
                                            @RequestParam("password") String password,
                                            @RequestParam("username") String username){
         try {
-            return ResponseEntity.ok(accountService.addAccount(email, username, password));
+            return ResponseEntity.ok(mapper.map(accountService.addAccount(email, username, password), AccountDto.class));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
         }
