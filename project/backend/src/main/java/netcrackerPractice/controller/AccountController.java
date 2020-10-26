@@ -24,7 +24,7 @@ public class AccountController {
                                            @RequestParam("password") String password,
                                            @RequestParam("username") String username){
         try {
-            return ResponseEntity.ok(mapper.map(accountService.addAccount(email, username, password), AccountDto.class));
+            return ResponseEntity.ok(mapper.map(accountService.addAccount(username, password, email), AccountDto.class));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
         }
