@@ -21,7 +21,7 @@ public class DataAccessApp {
     @Bean
     public CommandLineRunner demo(AccountRepository repository, AccountService accountService) {
         return (args) -> {
-            log.info("Accounts found with findAll():");
+            /*log.info("Accounts found with findAll():");
             for (Account account : repository.findAll()) {
                 log.info(account.toString());
             }
@@ -30,7 +30,7 @@ public class DataAccessApp {
             log.info("Account found with findByUsername(\"Anna\"):");
             log.info(repository.findByUsername("Anna").toString());
             log.info("================================");
-            //log.info(accountService.addAccount("qwerty", "test", "1234").toString());
+            //log.info(accountService.addAccount("qwerty", "test", "1234").toString());*/
         };
     }
 }

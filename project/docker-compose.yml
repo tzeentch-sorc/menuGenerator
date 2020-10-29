@@ -1,0 +1,41 @@
+version: '3'
+services:
+    db:
+        restart: always
+        image: postgres:latest
+        ports:
+            - 5001:5432
+        volumes:
+            - ./backend/src/main/resources/DBscripts/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+        environment:
+            - POSTGRES_DB=testdb
+            - POSTGRES_USER=femi
+            - POSTGRES_PASSWORD=1234
+    backend:
+        build: backend
+        ports:
+            - 5002:8080
+        environment:
+            - "SPRING_PROFILES_ACTIVE=docker"
+        depends_on:
+            - db
+    frontend:
+        container_name: frontend
+        build: ./frontend
+        ports:
+            - "5003:3000"
+        depends_on:
+            - backend
+    nginx:
+        container_name: nginx
+        image: proxy
+        build: ./.nginx
+        depends_on:
+            - backend
+            - frontend
+        ports:
+            - 80:80
+            - 443:443
+    
+
+
