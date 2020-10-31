@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # stop and remove containers created by 'docker-compose up'
-docker-compose down
+docker-compose down --remove-orphans
 
 # clean artifact and rebuild maven application
 cd ./backend/ && mvn clean install && cd ..

@@ -1,8 +1,12 @@
-FROM node:lts-alpine
-RUN npm install -g http-server
-WORKDIR ../frontend
+FROM node:lts-alpine as build-stage
+WORKDIR /app
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 COPY . .
 RUN npm run build
-CMD ["http-server", "dist", "-p", "3000"]
+
+FROM nginx:stable-alpine as production-stage
+RUN mkdir /app
+COPY --from=build-stage /app/target/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
+CMD ["nginx", "-g", "daemon off;"]

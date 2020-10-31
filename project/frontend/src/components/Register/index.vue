@@ -34,7 +34,7 @@
         params.append('email', this.email);
         params.append('password', this.password);
         params.append('username', this.username);
-        this.axios.post('http://localhost:8080/addUser', params)
+        this.axios.post('http://localhost:80/api/addUser', params)
             .then(function (response) {
               currentObj.output = response.data;
             })
