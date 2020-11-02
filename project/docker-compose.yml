@@ -14,6 +14,7 @@ services:
             - POSTGRES_PASSWORD=1234
 
     backend:
+        container_name: backend
         build:
             context: ./backend
         ports:
@@ -24,22 +25,14 @@ services:
             - database
 
     frontend:
-        build:
-            context: ./frontend
-        ports:
-            - 5003:5003
+        container_name: frontend
         depends_on:
             - backend
-
-    nginx:
-        container_name: reverse_proxy80
-        image: nginx:latest
-        depends_on:
-            - backend
-            - frontend
-        volumes:
-            - ./.nginx/default.conf:/etc/nginx/nginx.conf
         ports:
             - 8080:80
+        build:
+            context: ./frontend
+        links:
+            - backend
 
 

@@ -19,7 +19,8 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/addUser")
+    @CrossOrigin
+    @PostMapping("/api/addUser")
     public ResponseEntity<?> signUpAccount(@RequestParam("email") String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("username") String username){

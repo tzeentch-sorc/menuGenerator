@@ -34,7 +34,7 @@
         params.append('email', this.email);
         params.append('password', this.password);
         params.append('username', this.username);
-        this.axios.post('http://localhost:8080/back/addUser', params, {
+        this.axios.post('http://localhost:8080/api/addUser', params, {
           headers:{
             'Access-Control-Allow-Origin':'*'
           }
