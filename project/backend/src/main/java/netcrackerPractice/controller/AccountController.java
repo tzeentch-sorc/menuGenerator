@@ -20,7 +20,7 @@ public class AccountController {
     }
 
     @CrossOrigin
-    @PostMapping("/api/addUser")
+    @PostMapping("/addUser")
     public ResponseEntity<?> signUpAccount(@RequestParam("email") String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("username") String username){
