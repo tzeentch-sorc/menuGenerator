@@ -19,7 +19,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping(value = "/addUser")
+    @PostMapping("/addUser")
     public ResponseEntity<?> signUpAccount(@RequestParam("email") String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("username") String username){
