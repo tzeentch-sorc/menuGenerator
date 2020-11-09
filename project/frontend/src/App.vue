@@ -90,7 +90,7 @@ export default {
 <style>
 .logo-card {
   width: 100px;
-  height: 40;
+  height: 40%;
   margin: 0 5px 5px;
   display: block;
 }
