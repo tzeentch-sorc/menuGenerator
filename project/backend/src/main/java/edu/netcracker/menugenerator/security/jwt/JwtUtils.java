@@ -1,4 +1,4 @@
-package edu.netcracker.recipedb.security.jwt;
+package edu.netcracker.menugenerator.security.jwt;
 
 import java.util.Date;
 
@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import edu.netcracker.recipedb.security.services.UserDetailsImpl;
+import edu.netcracker.menugenerator.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	@Value("${bezkoder.app.jwtSecret}")
+	@Value("${menuGenerator.jwtSecret}")
 	private String jwtSecret;
 
-	@Value("${bezkoder.app.jwtExpirationMs}")
+	@Value("${menuGenerator.jwtExpirationMs}")
 	private int jwtExpirationMs;
 
 	public String generateJwtToken(Authentication authentication) {

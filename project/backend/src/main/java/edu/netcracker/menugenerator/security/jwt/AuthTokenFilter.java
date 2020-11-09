@@ -1,4 +1,4 @@
-package edu.netcracker.recipedb.security.jwt;
+package edu.netcracker.menugenerator.security.jwt;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,19 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import edu.netcracker.recipedb.security.services.UserDetailsServiceImpl;
+import edu.netcracker.menugenerator.security.services.UserDetailsServiceImpl;
 
+@NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-	@Autowired
+
 	private JwtUtils jwtUtils;
+	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	private UserDetailsServiceImpl userDetailsService;
+	public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService){
+		this.jwtUtils = jwtUtils;
+		this.userDetailsService = userDetailsService;
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -59,4 +65,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 		return null;
 	}
+
+
 }

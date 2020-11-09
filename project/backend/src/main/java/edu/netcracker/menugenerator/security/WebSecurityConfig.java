@@ -1,5 +1,6 @@
-package edu.netcracker.recipedb.security;
+package edu.netcracker.menugenerator.security;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import edu.netcracker.recipedb.security.jwt.AuthEntryPointJwt;
-import edu.netcracker.recipedb.security.jwt.AuthTokenFilter;
-import edu.netcracker.recipedb.security.services.UserDetailsServiceImpl;
+import edu.netcracker.menugenerator.security.jwt.AuthEntryPointJwt;
+import edu.netcracker.menugenerator.security.jwt.AuthTokenFilter;
+import edu.netcracker.menugenerator.security.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -24,12 +25,17 @@ import edu.netcracker.recipedb.security.services.UserDetailsServiceImpl;
 		// securedEnabled = true,
 		// jsr250Enabled = true,
 		prePostEnabled = true)
+@NoArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
+
 	UserDetailsServiceImpl userDetailsService;
+	private AuthEntryPointJwt unauthorizedHandler;
 
 	@Autowired
-	private AuthEntryPointJwt unauthorizedHandler;
+	public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt authEntryPointJwt){
+		this.userDetailsService = userDetailsService;
+		this.unauthorizedHandler = authEntryPointJwt;
+	}
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {

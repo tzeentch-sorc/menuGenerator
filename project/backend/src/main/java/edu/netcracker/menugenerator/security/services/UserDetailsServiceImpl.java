@@ -1,5 +1,6 @@
-package edu.netcracker.recipedb.security.services;
+package edu.netcracker.menugenerator.security.services;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,13 +8,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.netcracker.recipedb.models.User;
-import edu.netcracker.recipedb.repository.UserRepository;
+import edu.netcracker.menugenerator.entity.User;
+import edu.netcracker.menugenerator.repository.UserRepository;
 
 @Service
+@NoArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	public UserDetailsServiceImpl(UserRepository userRepository){
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	@Transactional
@@ -23,5 +29,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return UserDetailsImpl.build(user);
 	}
-
 }

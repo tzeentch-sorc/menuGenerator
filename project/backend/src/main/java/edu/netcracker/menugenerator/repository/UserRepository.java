@@ -1,11 +1,11 @@
-package edu.netcracker.recipedb.repository;
+package edu.netcracker.menugenerator.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import edu.netcracker.recipedb.models.User;
+import edu.netcracker.menugenerator.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

@@ -1,4 +1,4 @@
-package edu.netcracker.recipedb.security.jwt;
+package edu.netcracker.menugenerator.security.jwt;
 
 import java.io.IOException;
 

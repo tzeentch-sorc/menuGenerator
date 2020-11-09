@@ -1,4 +1,4 @@
-package edu.netcracker.recipedb.controllers;
+package edu.netcracker.menugenerator.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,36 +20,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.netcracker.recipedb.models.ERole;
-import edu.netcracker.recipedb.models.Role;
-import edu.netcracker.recipedb.models.User;
-import edu.netcracker.recipedb.payload.request.LoginRequest;
-import edu.netcracker.recipedb.payload.request.SignupRequest;
-import edu.netcracker.recipedb.payload.response.JwtResponse;
-import edu.netcracker.recipedb.payload.response.MessageResponse;
-import edu.netcracker.recipedb.repository.RoleRepository;
-import edu.netcracker.recipedb.repository.UserRepository;
-import edu.netcracker.recipedb.security.jwt.JwtUtils;
-import edu.netcracker.recipedb.security.services.UserDetailsImpl;
+import edu.netcracker.menugenerator.entity.ERole;
+import edu.netcracker.menugenerator.entity.Role;
+import edu.netcracker.menugenerator.entity.User;
+import edu.netcracker.menugenerator.dto.request.LoginRequest;
+import edu.netcracker.menugenerator.dto.request.SignupRequest;
+import edu.netcracker.menugenerator.dto.response.JwtResponse;
+import edu.netcracker.menugenerator.dto.response.MessageResponse;
+import edu.netcracker.menugenerator.repository.RoleRepository;
+import edu.netcracker.menugenerator.repository.UserRepository;
+import edu.netcracker.menugenerator.security.jwt.JwtUtils;
+import edu.netcracker.menugenerator.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/")
 public class AuthController {
-	@Autowired
+
 	AuthenticationManager authenticationManager;
-
-	@Autowired
 	UserRepository userRepository;
-
-	@Autowired
 	RoleRepository roleRepository;
-
-	@Autowired
 	PasswordEncoder encoder;
+	JwtUtils jwtUtils;
 
 	@Autowired
-	JwtUtils jwtUtils;
+	public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils){
+		this.authenticationManager = authenticationManager;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.encoder = encoder;
+		this.jwtUtils = jwtUtils;
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
