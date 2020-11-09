@@ -7,11 +7,11 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./backend/src/main/resources/DBscripts/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+            - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
         environment:
             - POSTGRES_DB=testdb
-            - POSTGRES_USER=femi
-            - POSTGRES_PASSWORD=1234
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=root
 
     backend:
         container_name: backend

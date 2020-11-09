@@ -8,7 +8,7 @@ RUN npm run build
 
 # этап production (production-stage)
 FROM nginx:alpine as production-stage
-COPY --from=build-stage /app/target/dist /src
+COPY --from=build-stage /app/target/dist /application
 COPY ./default.conf /etc/nginx/conf.d/
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
