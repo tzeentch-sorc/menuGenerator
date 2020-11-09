@@ -3,23 +3,29 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+		<artifactId>backend</artifactId>
+		<packaging>jar</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>2.3.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt</name>
-	<description>Demo project for Spring Boot Security - JWT</description>
+
+	<name>backend</name>
+	<description>Backend module for Menu Generator</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -58,13 +64,24 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+		<finalName>menuGenerator</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>edu.netcracker.menugenerator.MenuGenerator</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
