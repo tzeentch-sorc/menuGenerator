@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     @Size(max = 255)
@@ -30,15 +30,15 @@ public class Meal {
     @Size(max = 120)
     private String mealtype;
 
-    private Integer calories;
+    private int calories;
 
-    private Integer portions;
+    private int portions;
 
     private double fats;
 
     private double carbohydrates;
 
-    private Integer weight;
+    private int weight;
 
     private double proteins;
 

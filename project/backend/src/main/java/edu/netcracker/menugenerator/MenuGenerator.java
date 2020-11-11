@@ -21,21 +21,21 @@ public class MenuGenerator {
 		SpringApplication.run(MenuGenerator.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(MealRepository repository) {
-		return (args) -> {
-            log.info("Accounts found with findAll():");
-            for (Meal meal : repository.findAll()) {
-                log.info(meal.toString());
-            }
-            log.info("-------------------------------\n");
-            Long id = 5L;
-			Meal meal = repository.findByName("Нежный хек");
-			log.info(meal.toString());
-			log.info("-------------------------------\n");
-			Optional<Meal> mealById = repository.findById(5L);
-			log.info(mealById.get().toString());
-			log.info("-------------------------------\n");
-		};
-	}
+//	@Bean
+//	public CommandLineRunner demo(MealRepository repository) {
+//		return (args) -> {
+//            log.info("Accounts found with findAll():");
+//            for (Meal meal : repository.findAll()) {
+//                log.info(meal.toString());
+//            }
+//            log.info("-------------------------------\n");
+//            Long id = 5L;
+//			//Meal meal = repository.findByName("Нежный хек");
+//			//log.info(meal.toString());
+//			log.info("-------------------------------\n");
+//			Optional<Meal> mealById = repository.findById(5L);
+//			log.info(mealById.get().toString());
+//			log.info("-------------------------------\n");
+//		};
+//	}
 }

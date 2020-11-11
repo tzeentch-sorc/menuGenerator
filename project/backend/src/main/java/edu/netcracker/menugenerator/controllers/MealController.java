@@ -1,53 +1,45 @@
 package edu.netcracker.menugenerator.controllers;
 
-import edu.netcracker.menugenerator.repository.MealRepository;
+import edu.netcracker.menugenerator.dto.MealDto;
+import edu.netcracker.menugenerator.services.MealService;
+import javassist.NotFoundException;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import edu.netcracker.menugenerator.entity.Meal;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:8080/")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api/meals")
 public class MealController {
-    private MealRepository mealRepository;
+    private final MealService mealService;
+    private final Mapper mapper;
 
     @Autowired
-    public MealController() {
+    public MealController(MealService mealService, Mapper mapper) {
+        this.mealService = mealService;
+        this.mapper = mapper;
     }
 
-    @GetMapping(value = "/meal/{id}")
-    public ResponseEntity<Meal> getMealById(@PathVariable(name = "id") Long id) {
-        Optional<Meal> meal =  mealRepository.findById(id);
-        if (meal.isPresent()) {
-            return new ResponseEntity<>(meal.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/meals")
-    public ResponseEntity<List<Meal>> getAllTutorials(@RequestParam(required = false) String name) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> getMealById(@PathVariable(name = "id") Long id) {
         try {
-            List<Meal> meals = new ArrayList<>();
-
-            if (name == null)
-                mealRepository.findAll().forEach(meals::add);
-            else
-                mealRepository.findByNameContaining(name).forEach(meals::add);
-
-            if (meals.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(meals, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.ok(mapper.map(mealService.getById(id), MealDto.class));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<?>> getAllMeals() {
+        List<MealDto> meals = mealService.getAllMeals().stream().map(
+                e -> mapper.map(e, MealDto.class)
+        ).collect(Collectors.toList());
+        return ResponseEntity.ok().body(meals);
     }
 }
