@@ -1,16 +1,17 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{content}}</h3>
+      <MealCard :parent-data="this.content[0]"/>
     </header>
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service';
-
+import MealCard from "../components/MealCard";
 export default {
   name: 'Home',
+  components: {MealCard},
   data() {
     return {
       content: ''
