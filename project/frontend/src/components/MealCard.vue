@@ -1,11 +1,16 @@
 <template>
   <div>
-    <md-card md-with-hover>
+    <md-card md-with-hover class="md-primary">
       <md-ripple>
-        <md-card-header>This is card</md-card-header>
+        <md-card-header>
+          <div class="md-title">Card with hover effect</div>
+        </md-card-header>
         <md-card-content>
-          {{parentData}}
+          {{parentData.recipe}}
         </md-card-content>
+        <md-card-actions>
+          <md-button>Action</md-button>
+        </md-card-actions>
       </md-ripple>
 
     </md-card>
@@ -15,17 +20,17 @@
 
 export default {
   name: 'MealCard',
-  data() {
-    return {
-      content: ''
-    }
-  },
   props:{
     parentData: Object
   }
 }
 
 </script>
-<style>
-
+<style lang="scss" scoped>
+.md-card {
+  width: 320px;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: top;
+}
 </style>

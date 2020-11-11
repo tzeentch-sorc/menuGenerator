@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <MealCard :parent-data="this.content[0]"/>
-    </header>
+    <header class="jumbotron">Header</header>
+      <div>
+        <MealCard :parent-data="this.content[0]"/>
+        <MealCard :parent-data="this.content[1]"/>
+      </div>
   </div>
 </template>
 

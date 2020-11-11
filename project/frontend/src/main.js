@@ -8,6 +8,8 @@ import VeeValidate from 'vee-validate';
 import Vuex from 'vuex';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.css'
 import {
   faHome,
   faUser,
@@ -21,6 +23,7 @@ library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
+Vue.use(VueMaterial);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);
