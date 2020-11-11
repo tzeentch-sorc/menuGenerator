@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import edu.netcracker.menugenerator.security.services.UserDetailsImpl;
+import edu.netcracker.menugenerator.services.impl.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component

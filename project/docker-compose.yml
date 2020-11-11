@@ -7,7 +7,7 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+            - ./database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
         environment:
             - POSTGRES_DB=testdb
             - POSTGRES_USER=postgres

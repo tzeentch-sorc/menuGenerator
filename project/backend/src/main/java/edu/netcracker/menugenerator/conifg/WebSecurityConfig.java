@@ -1,4 +1,4 @@
-package edu.netcracker.menugenerator.security;
+package edu.netcracker.menugenerator.conifg;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import edu.netcracker.menugenerator.security.jwt.AuthEntryPointJwt;
 import edu.netcracker.menugenerator.security.jwt.AuthTokenFilter;
-import edu.netcracker.menugenerator.security.services.UserDetailsServiceImpl;
+import edu.netcracker.menugenerator.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
+			.antMatchers("/api/meals/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

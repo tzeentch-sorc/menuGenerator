@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,7 @@ import edu.netcracker.menugenerator.dto.response.MessageResponse;
 import edu.netcracker.menugenerator.repository.RoleRepository;
 import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.security.jwt.JwtUtils;
-import edu.netcracker.menugenerator.security.services.UserDetailsImpl;
+import edu.netcracker.menugenerator.services.impl.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

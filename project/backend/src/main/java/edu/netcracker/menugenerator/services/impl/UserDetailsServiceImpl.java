@@ -1,4 +1,4 @@
-package edu.netcracker.menugenerator.security.services;
+package edu.netcracker.menugenerator.services.impl;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

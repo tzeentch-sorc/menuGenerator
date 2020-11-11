@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import edu.netcracker.menugenerator.security.services.UserDetailsServiceImpl;
+import edu.netcracker.menugenerator.services.impl.UserDetailsServiceImpl;
 
 @NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {

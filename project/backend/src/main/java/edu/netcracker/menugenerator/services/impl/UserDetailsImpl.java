@@ -1,4 +1,4 @@
-package edu.netcracker.menugenerator.security.services;
+package edu.netcracker.menugenerator.services.impl;
 
 import java.util.Collection;
 import java.util.List;
