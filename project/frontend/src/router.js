@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Profile from './views/Profile.vue';
-import Meal from './views/Meal.vue';
+import Meal from './components/MealInfo.vue';
 
 Vue.use(Router);
 

@@ -1,9 +1,16 @@
 <template>
   <div class="container">
     <header class="jumbotron">Header</header>
-      <div>
-        <MealCard :parent-data="this.content[0]"/>
-        <MealCard :parent-data="this.content[1]"/>
+      <div v-masonry transition-duration="0.2s" item-selector=".item">
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item"/>
       </div>
   </div>
 </template>
