@@ -1,16 +1,8 @@
 <template>
   <div class="container">
-    <header class="jumbotron">Header</header>
+    <header class="jumbotron">{{ errorMsg }}</header>
       <div v-masonry transition-duration="0.2s" item-selector=".item">
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
-        <MealCard v-masonry-tile class="item"/>
+        <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
       </div>
   </div>
 </template>
@@ -23,7 +15,82 @@ export default {
   components: {MealCard},
   data() {
     return {
-      content: ''
+      content: [
+          //example data -- NEED TO BE REMOVED on final
+        {
+          "id": 1,
+          "name": "Нежный хек",
+          "recipe": "1. Филе хека посолить, поперчить. 2. Взбить яйцо и поместить туда филе. 3. Обвалять в муке смоченное в яйце филе. 4. Положить на смазанную растительным маслом сковороду и потушить с каждой стороны по 5-7 минут. Подавать с гарниром или овощами. Блюдо очень простое, недорогое, получается вкусным и нежным.",
+          "mealtype": null,
+          "calories": 139,
+          "portions": 2,
+          "fats": 7.5,
+          "carbohydrates": 2.9,
+          "weight": 135,
+          "proteins": 15.0
+        },
+        {
+          "id": 2,
+          "name": "Крупеник гречневый",
+          "recipe": "1. Крупу всыпать в кипящую воду, добавить молоко, соль, довести до кипения, варить до готовности. 2. Творог протереть через сито или измельчить в блендере. 3. Яйца растереть с сахаром. 4. Добавить в кашу творог и яйца, перемешать, выложить в смазанную маслом и посыпанную панировочными сухарями форму. 5. Поверхность смазать сметаной и запекать до образования румяной корочки в разогретой до 220 градусов духовке, около 15 минут. Подавать с йогуртом или нежирной сметаной.",
+          "mealtype": null,
+          "calories": 142,
+          "portions": 4,
+          "fats": 3.1,
+          "carbohydrates": 17.7,
+          "weight": 272,
+          "proteins": 10.5
+        },
+        {
+          "id": 3,
+          "name": "Запеченный лосось",
+          "recipe": "1. Уложить рыбу в форму кожей вниз. 2. Смазать взбитым яйцом, посолить, поперчить, посыпать сухарями. 3. Поставить в холодильник на 1 час. 4. Разогреть духовку до 200 градусов. 5. На рыбу положить масло и запекать 20 минут.",
+          "mealtype": null,
+          "calories": 176,
+          "portions": 4,
+          "fats": 8.8,
+          "carbohydrates": 6.1,
+          "weight": 155,
+          "proteins": 18.6
+        },
+        {
+          "id": 4,
+          "name": "Минтай, тушеный в сметане",
+          "recipe": "1. Нарезать рыбу порционными кусками. 2. Лук нарезать кольцами и обжарить на растительном масле. 3. В сотейник налить масло, уложить рыбу в один или два слоя, сверху положить лук, залить тонким слоем сметаны и тушить на слабом огне 25 - 30 минут. 4. За 5 минут до готовности добавить соль, перец. Подавать с картофельным пюре и зеленью.",
+          "mealtype": null,
+          "calories": 72,
+          "portions": 4,
+          "fats": 1.8,
+          "carbohydrates": 1.8,
+          "weight": 205,
+          "proteins": 12.2
+        },
+        {
+          "id": 5,
+          "name": "Ячневая каша с яйцом",
+          "recipe": "1. Вскипятить воду, посолить, засыпать крупу и варить кашу на медленном огне 20 минут. 2. Яйцо отварить, очистить, мелко нарезать, смешать с рубленой зеленью. 3. Кашу подавать со сливочным маслом, посыпав яйцом и зеленью.",
+          "mealtype": null,
+          "calories": 112,
+          "portions": 1,
+          "fats": 6.3,
+          "carbohydrates": 10.2,
+          "weight": 333,
+          "proteins": 3.6
+        },
+        {
+          "id": 6,
+          "name": "Перец, фаршированный мясом и гречкой",
+          "recipe": "1. Перебрать гречку, залить кипятком. 2. Подготовить перцы, аккуратно вынув сердцевину. 3. Сделать начинку из перекрученного мяса, гречки, мелко нарезанного лука и специй. 4. Нафаршировать перцы. 5. Смазать казан или кастрюлю с толстым дном маслом, поставить перчики открытым концом вверх. 6. Развести томатную пасту с водой, крахмалом и солью, залить перцы, полностью. 7. Поставить в разогретую о 200 градусов духовку на 1,5 часа. 8. При подаче посыпать зеленью.",
+          "mealtype": null,
+          "calories": 126,
+          "portions": 4,
+          "fats": 6.1,
+          "carbohydrates": 8.9,
+          "weight": 276,
+          "proteins": 8.7
+        }
+      ],
+      errorMsg: 'All is ok'
     };
   },
   mounted() {
@@ -32,8 +99,7 @@ export default {
         this.content = response.data;
       },
       error => {
-        this.content =
-          (error.response && error.response.data && error.response.data.message) ||
+        this.errorMsg = (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
       }

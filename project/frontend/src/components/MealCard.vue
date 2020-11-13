@@ -27,10 +27,10 @@
             <img src="../assets/test-pic.jpeg" alt="meal">
           </md-card-media>
           <md-card-header>
-            <div class="md-title">Meal name</div>
+            <div class="md-title">{{parentData.name}}</div>
           </md-card-header>
           <md-card-content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet volutpat nisi. Nulla augue lorem, congue ac molestie in, imperdiet at est. Aliquam dapibus.
+            {{parentData.recipe}}
           </md-card-content>
         </md-ripple>
       </md-card>
@@ -38,6 +38,8 @@
 </template>
 <script>
 //import MealInfo from "@/components/MealInfo";
+//TODO Move dialog to separate component, pass props to it
+//TODO decide on fields on card - implement them
 export default {
   name: 'MealCard',
   //components: {MealInfo},
