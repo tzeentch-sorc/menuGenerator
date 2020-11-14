@@ -27,7 +27,8 @@ export default {
           "fats": 7.5,
           "carbohydrates": 2.9,
           "weight": 135,
-          "proteins": 15.0
+          "proteins": 15.0,
+          "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1000/7ec8bfd87e7906def5f04e14aeec99e0.JPG"
         },
         {
           "id": 2,
@@ -39,7 +40,8 @@ export default {
           "fats": 3.1,
           "carbohydrates": 17.7,
           "weight": 272,
-          "proteins": 10.5
+          "proteins": 10.5,
+          "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1001/587bb462663ae74eb69cad6cc265d971.jpg"
         },
         {
           "id": 3,
@@ -51,7 +53,8 @@ export default {
           "fats": 8.8,
           "carbohydrates": 6.1,
           "weight": 155,
-          "proteins": 18.6
+          "proteins": 18.6,
+           "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1002/e46deea257cc9c055514ed0b6f1185c6.jpg"
         },
         {
           "id": 4,
@@ -63,7 +66,8 @@ export default {
           "fats": 1.8,
           "carbohydrates": 1.8,
           "weight": 205,
-          "proteins": 12.2
+          "proteins": 12.2,
+           "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1003/4e4b484a3382f5f3f320dae641802e87.jpg"
         },
         {
           "id": 5,
@@ -75,7 +79,8 @@ export default {
           "fats": 6.3,
           "carbohydrates": 10.2,
           "weight": 333,
-          "proteins": 3.6
+          "proteins": 3.6,
+          "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1004/80d9612fcc7baa47cef6bd3c44da658d.jpg"
         },
         {
           "id": 6,
@@ -87,7 +92,8 @@ export default {
           "fats": 6.1,
           "carbohydrates": 8.9,
           "weight": 276,
-          "proteins": 8.7
+          "proteins": 8.7,
+          "picture" : "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1005/7595c8318a0eed4227f46a2edb60560b.jpg"
         }
       ],
       errorMsg: 'All is ok'
