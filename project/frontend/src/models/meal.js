@@ -1,5 +1,5 @@
 export default class Meal {
-    constructor(name, calories, fats, carbo, proteins, weight, portions, recipe) {
+    constructor(name, calories, fats, carbo, proteins, weight, portions, recipe, picture) {
         this.name = name;
         this.calories = calories;
         this.fats = fats;
@@ -8,5 +8,6 @@ export default class Meal {
         this.weight = weight;
         this.portions = portions;
         this.recipe = recipe;
+        this.picture = picture;
     }
 }
