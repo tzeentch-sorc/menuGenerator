@@ -1,15 +1,16 @@
-import http from "../http-common";
+import axios from 'axios';
+const API_URL = 'http://localhost:8080/api/meals';
 
 class MealService {
   getAll() {
-    return http.get("/meals");
+    return axios.get(API_URL + "/all");
   }
   get(id) {
-    return http.get(`/meal/${id}`);
+    return axios.get(API_URL + `/${id}`);
   }
 
   findByTitle(title) {
-    return http.get(`/meals?title=${title}`);
+    return axios.get(API_URL + `/${title}`);
   }
 }
 

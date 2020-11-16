@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import UserService from '../services/user.service';
+import MealService from '../services/meal.service';
 import MealCard from "../components/MealCard";
 export default {
   name: 'Home',
@@ -94,7 +94,7 @@ export default {
     };
   },
   mounted() {
-    UserService.getPublicContent().then(
+    MealService.getAll().then(
       response => {
         this.content = response.data;
       },

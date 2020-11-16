@@ -42,4 +42,14 @@ public class MealController {
         ).collect(Collectors.toList());
         return ResponseEntity.ok().body(meals);
     }
+
+    @GetMapping("/{title}")
+    public ResponseEntity<?> getMealById(@PathVariable(name = "title") String title) {
+        try {
+            return ResponseEntity.ok(mapper.map(mealService.getByName(title), MealDto.class));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
