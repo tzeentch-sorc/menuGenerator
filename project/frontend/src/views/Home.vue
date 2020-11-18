@@ -16,7 +16,19 @@ export default {
   components: {MealCard},
   data() {
     return {
-      content: [],
+      content: [{
+        "id": 1,
+        "name": "Нежный хек",
+        "recipe": "1. Филе хека посолить, поперчить. 2. Взбить яйцо и поместить туда филе. 3. Обвалять в муке смоченное в яйце филе. 4. Положить на смазанную растительным маслом сковороду и потушить с каждой стороны по 5-7 минут. Подавать с гарниром или овощами. Блюдо очень простое, недорогое, получается вкусным и нежным.",
+        "mealtype": null,
+        "calories": 139,
+        "portions": 2,
+        "fats": 7.5,
+        "carbohydrates": 2.9,
+        "weight": 135,
+        "proteins": 15.0,
+        "picture":"https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1001/587bb462663ae74eb69cad6cc265d971.jpg"
+      }],
       errorMsg: 'All is ok',
       hasNextPage: false,
       nextPage: 0,
@@ -49,3 +61,5 @@ export default {
   }
 };
 </script>
+
+
