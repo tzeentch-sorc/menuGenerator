@@ -5,10 +5,11 @@ import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.services.MealService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -22,10 +23,9 @@ public class MealServiceImpl implements MealService {
 
 
     @Override
-    public List<Meal> getAllMeals() {
-        return mealRepository.findAll();
+    public Slice<Meal> getAllMeals(Pageable pageable) {
+        return mealRepository.findAll(pageable);
     }
-
     @Override
     public Meal getById(long id) throws NotFoundException{
         return mealRepository.findById(id).orElseThrow(
