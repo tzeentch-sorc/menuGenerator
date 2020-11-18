@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand">
 
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -96,6 +96,6 @@ export default {
 }
 
 .navbar {
-  background-color: #C0C0C0;
+  background-color: lightgrey;
 }
 </style>
