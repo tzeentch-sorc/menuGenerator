@@ -42,7 +42,6 @@ public class Meal {
 
     private double proteins;
 
-    @Column(name="picture")
     private String picture;
 
   /*  @ManyToMany

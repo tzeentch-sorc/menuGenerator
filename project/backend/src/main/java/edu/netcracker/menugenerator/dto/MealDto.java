@@ -18,5 +18,5 @@ public class MealDto {
     private double carbohydrates;
     private int weight;
     private double proteins;
-    private String picture;
+    private  String picture;
 }
