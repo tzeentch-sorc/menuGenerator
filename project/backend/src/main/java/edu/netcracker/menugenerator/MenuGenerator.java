@@ -26,7 +26,7 @@ public class MenuGenerator {
 //		return (args) -> {
 //            log.info("Accounts found with findAll():");
 //            for (Meal meal : repository.findAll()) {
-//                log.info(meal.toString());
+//                log.info(meal.getPicture());
 //            }
 //            log.info("-------------------------------\n");
 //            Long id = 5L;
@@ -36,6 +36,6 @@ public class MenuGenerator {
 //			Optional<Meal> mealById = repository.findById(5L);
 //			log.info(mealById.get().toString());
 //			log.info("-------------------------------\n");
-//		};
+//	};
 //	}
 }

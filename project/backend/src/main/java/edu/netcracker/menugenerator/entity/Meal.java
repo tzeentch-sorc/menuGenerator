@@ -42,6 +42,9 @@ public class Meal {
 
     private double proteins;
 
+    @Column(name="picture")
+    private String picture;
+
   /*  @ManyToMany
     @JoinTable(	name = "productInMeal",
             joinColumns = @JoinColumn(name = "product_id"),
