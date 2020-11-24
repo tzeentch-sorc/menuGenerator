@@ -18,15 +18,15 @@
                 <md-table>
                   <md-table-row>
                     <md-table-cell>Порций</md-table-cell>
-                    <md-table-cell>{{mealItem.portions}}</md-table-cell>
+                    <md-table-cell>{{mealItem.portions}} шт</md-table-cell>
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Калорий в порции</md-table-cell>
-                    <md-table-cell>{{mealItem.calories}}</md-table-cell>
+                    <md-table-cell>{{mealItem.calories}} ккал</md-table-cell>
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Вес порции</md-table-cell>
-                    <md-table-cell>{{mealItem.weight}}</md-table-cell>
+                    <md-table-cell>{{mealItem.weight}} г</md-table-cell>
                   </md-table-row>
                 </md-table>
               </md-tab>

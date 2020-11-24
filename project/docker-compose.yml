@@ -5,13 +5,13 @@ services:
         image: postgres:latest
         container_name: database
         ports:
-            - 5001:5432
+            - 5432:5432
         volumes:
             - ./database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
         environment:
-            - POSTGRES_DB=testdb
+            - POSTGRES_DB=menu
             - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=root
+            - POSTGRES_PASSWORD=1234
 
     backend:
         container_name: backend

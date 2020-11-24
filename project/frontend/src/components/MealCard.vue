@@ -1,8 +1,6 @@
 <template>
   <div>
- 
     <MealInfo v-if="showDialog" :mealItem="parentData" @closeInfo="showDialog = false"/>
-
     <md-card md-with-hover @click.native="showDialog = true">
       <md-ripple>
         <md-card-media>

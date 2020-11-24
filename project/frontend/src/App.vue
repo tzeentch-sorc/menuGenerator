@@ -4,7 +4,7 @@
 
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/home" class="nav-link">
+          <router-link to="/" class="nav-link">
             <img
                           id="nc-logo"
                           src="//spb.edu-netcracker.com/images/logo.png"
