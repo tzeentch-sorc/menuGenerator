@@ -1,4 +1,4 @@
-package edu.netcracker.menugenerator.entity;
+package edu.netcracker.menugenerator.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,15 +1,10 @@
 package edu.netcracker.menugenerator.entity;
 
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+import edu.netcracker.menugenerator.util.MealType;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-
-import java.util.List;
-import java.util.Set;
-import java.util.Iterator;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

@@ -1,8 +1,8 @@
 package edu.netcracker.menugenerator.services.impl;
 
 import edu.netcracker.menugenerator.entity.Meal;
-import edu.netcracker.menugenerator.entity.MealFilters;
-import edu.netcracker.menugenerator.entity.MealType;
+import edu.netcracker.menugenerator.util.MealFilters;
+import edu.netcracker.menugenerator.util.MealType;
 import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.services.JsonService;
 import edu.netcracker.menugenerator.services.MealService;

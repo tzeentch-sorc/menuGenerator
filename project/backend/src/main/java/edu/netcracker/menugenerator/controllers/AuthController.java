@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.netcracker.menugenerator.entity.ERole;
+import edu.netcracker.menugenerator.util.ERole;
 import edu.netcracker.menugenerator.entity.Role;
 import edu.netcracker.menugenerator.entity.User;
 import edu.netcracker.menugenerator.dto.request.LoginRequest;

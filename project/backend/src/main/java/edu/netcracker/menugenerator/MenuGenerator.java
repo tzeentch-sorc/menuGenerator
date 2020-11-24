@@ -1,19 +1,9 @@
 package edu.netcracker.menugenerator;
 
-import edu.netcracker.menugenerator.entity.MealType;
-import edu.netcracker.menugenerator.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import edu.netcracker.menugenerator.repository.MealRepository;
-import edu.netcracker.menugenerator.entity.Meal;
-import org.springframework.data.domain.Slice;
-
-import java.util.Optional;
 
 @SpringBootApplication
 public class MenuGenerator {

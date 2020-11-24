@@ -1,5 +1,6 @@
 package edu.netcracker.menugenerator.entity;
 
+import edu.netcracker.menugenerator.util.ERole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

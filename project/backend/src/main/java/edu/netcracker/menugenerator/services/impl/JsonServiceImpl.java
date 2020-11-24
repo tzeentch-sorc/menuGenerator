@@ -3,7 +3,7 @@ package edu.netcracker.menugenerator.services.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import edu.netcracker.menugenerator.entity.MealFilters;
+import edu.netcracker.menugenerator.util.MealFilters;
 import edu.netcracker.menugenerator.services.JsonService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

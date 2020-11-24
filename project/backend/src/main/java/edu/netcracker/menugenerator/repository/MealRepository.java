@@ -1,10 +1,6 @@
 package edu.netcracker.menugenerator.repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import edu.netcracker.menugenerator.entity.MealType;
-import org.springframework.data.domain.Page;
+import edu.netcracker.menugenerator.util.MealType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;

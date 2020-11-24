@@ -1,4 +1,4 @@
-package edu.netcracker.menugenerator.entity;
+package edu.netcracker.menugenerator.util;
 
 public enum ERole {
 	ROLE_USER,
