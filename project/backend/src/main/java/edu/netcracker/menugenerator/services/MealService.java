@@ -6,9 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
 public interface MealService {
-    Slice<Meal> getAllMeals(Pageable pageable);
+    Slice<Meal> getAllMeals(String filters, Pageable pageable);
 
     Meal getById(long id) throws NotFoundException;
-
-    Meal getByName(String name) throws NotFoundException;
 }

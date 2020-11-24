@@ -11,7 +11,7 @@ public class MealDto {
     private long id;
     private String name;
     private String recipe;
-    private String mealtype;
+    private String type;
     private int calories;
     private int portions;
     private double fats;

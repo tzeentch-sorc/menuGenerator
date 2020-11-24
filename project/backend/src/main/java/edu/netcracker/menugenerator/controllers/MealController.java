@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -37,19 +36,10 @@ public class MealController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<MealDto>> getAllMeals(Pageable pageable) {
-        Slice<MealDto> meals = mealService.getAllMeals(pageable).map(
+    public ResponseEntity<?> getAllMeals(@RequestParam(required = false) String filters, Pageable pageable) {
+        Slice<MealDto> meals = mealService.getAllMeals(filters, pageable).map(
                 e -> mapper.map(e, MealDto.class)
         );
         return ResponseEntity.ok().headers(PaginationUtil.generateSliceHttpHeaders(meals)).body(meals.getContent());
-    }
-
-    @GetMapping("/{title}")
-    public ResponseEntity<?> getMealById(@PathVariable(name = "title") String title) {
-        try {
-            return ResponseEntity.ok(mapper.map(mealService.getByName(title), MealDto.class));
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
     }
 }

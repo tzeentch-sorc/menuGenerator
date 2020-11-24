@@ -1,52 +1,43 @@
 <template>
   <div class="container">
-    <header class="jumbotron">{{ errorMsg }}</header>
-      <div v-masonry transition-duration="0.15s" item-selector=".item">
-        <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
-      </div>
-    <div v-if="content.length" v-observe-visibility="handleBottom"></div>
+    <MealsSearch v-on:searchRequest="onRequestReceived"/>
+    <md-divider/>
+    <div v-masonry transition-duration="0.15s" item-selector=".item">
+      <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
+    </div>
+    <div v-if="content.length" v-observe-visibility="handleBottom">
+      <md-progress-bar v-if="this.hasNextPage" md-mode="indeterminate"/>
+    </div>
   </div>
 </template>
 
 <script>
 import MealService from '../services/meal.service';
 import MealCard from "../components/MealCard";
+import MealsSearch from "@/components/MealsSearch";
 export default {
   name: 'Home',
-  components: {MealCard},
+  components: {MealsSearch, MealCard},
   data() {
     return {
-      content: [{
-        "id": 1,
-        "name": "Нежный хек",
-        "recipe": "1. Филе хека посолить, поперчить. 2. Взбить яйцо и поместить туда филе. 3. Обвалять в муке смоченное в яйце филе. 4. Положить на смазанную растительным маслом сковороду и потушить с каждой стороны по 5-7 минут. Подавать с гарниром или овощами. Блюдо очень простое, недорогое, получается вкусным и нежным.",
-        "mealtype": null,
-        "calories": 139,
-        "portions": 2,
-        "fats": 7.5,
-        "carbohydrates": 2.9,
-        "weight": 135,
-        "proteins": 15.0,
-        "picture":"https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/1001/587bb462663ae74eb69cad6cc265d971.jpg"
-      }],
+      content: [],
       errorMsg: 'All is ok',
       hasNextPage: false,
       nextPage: 0,
+      filters: null
     };
   }, methods: {
-    handleBottom(isVisible){
-      if(!isVisible) { return }
-      if(!this.hasNextPage) { return }
-
-      this.nextPage++;
-
+    handleBottom: function (isVisible){
+      if(!isVisible) { return; }
+      if(!this.hasNextPage) return;
+      this.nextPage++
       this.loadMore();
     },
     loadMore(){
-          MealService.getAll(this.nextPage).then(
+          MealService.getAll(this.nextPage, this.filters).then(
               response => {
                 this.content.push(...response.data);
-                this.hasNextPage = response.headers['x-has-next-page'];
+                this.hasNextPage = response.headers['x-has-next-page'] ==='true';
               },
               error => {
                 this.errorMsg = (error.response && error.response.data && error.response.data.message) ||
@@ -54,6 +45,11 @@ export default {
                     error.toString();
               }
           );
+    },
+    onRequestReceived(value){
+      this.filters = value;
+      this.content = [];
+      this.loadMore();
     }
   },
   mounted() {
@@ -61,5 +57,4 @@ export default {
   }
 };
 </script>
-
 

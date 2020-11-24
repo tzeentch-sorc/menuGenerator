@@ -1,6 +1,9 @@
 package edu.netcracker.menugenerator.entity;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +17,8 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "meal")
+@TypeDef(name = "type_enum",
+            typeClass = PostgreSQLEnumType.class)
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,21 +31,17 @@ public class Meal {
     @NotBlank
     private String recipe;
 
-    @NotBlank
-    @Size(max = 120)
-    private String mealtype;
-
     private int calories;
-
     private int portions;
-
+    private double proteins;
     private double fats;
-
     private double carbohydrates;
-
     private int weight;
 
-    private double proteins;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", columnDefinition = "meal_type_enum")
+    @Type(type = "type_enum")
+    private MealType type;
 
     private String picture;
 
