@@ -7,6 +7,7 @@ import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.services.JsonService;
 import edu.netcracker.menugenerator.services.MealService;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -35,19 +36,21 @@ public class MealServiceImpl implements MealService {
         if(mealFilters.getText().length() > 0){
             if(mealFilters.getMealType() == MealType.TYPE_ALL){
                 if(mealFilters.isSearchInRecipe()){
-                    return mealRepository.findAllByRecipeContaining(mealFilters.getText(), pageable);
+                    return mealRepository.findAllByRecipeIgnoreCaseContaining(mealFilters.getText(), pageable);
                 } else {
-                    return mealRepository.findAllByNameContaining(mealFilters.getText(), pageable);
+                    return mealRepository.findAllByNameIgnoreCaseContaining(mealFilters.getText(), pageable);
                 }
             } else {
                 if(mealFilters.isSearchInRecipe()){
-                    return mealRepository.findAllByNameContainingAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
+                    return mealRepository.findAllByRecipeIgnoreCaseContainingAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
                 } else {
-                    return mealRepository.findAllByRecipeContainingAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
+                    return mealRepository.findAllByNameContainingIgnoreCaseAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
                 }
             }
         } else {
-            return mealRepository.findAll(pageable);
+            if(mealFilters.getMealType() != MealType.TYPE_ALL) {
+                return mealRepository.findAllByType(mealFilters.getMealType(), pageable);
+            } else return mealRepository.findAll(pageable);
         }
     }
     @Override

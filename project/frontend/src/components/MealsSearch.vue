@@ -2,9 +2,9 @@
   <div class="md-layout">
     <div class="md-layout-item">
         <md-field>
-          <label>Search</label>
+          <label>Поиск</label>
           <md-input v-model="filters.text"></md-input>
-          <span class="md-helper-text">Try searching recipes here</span>
+          <span class="md-helper-text">Найдите рецепт по душе здесь</span>
         </md-field>
     </div>
     <div class="md-layout-item">
@@ -24,8 +24,8 @@
         <md-checkbox v-model="filters.searchInRecipe" class="md-primary">Искать по рецептам</md-checkbox>
     </div>
     <div class="buttons">
-      <md-button class="md-primary md-raised" @click="search">search</md-button>
-      <md-button class="md-primary md-raised" @click="randomMeal">random</md-button>
+      <md-button class="md-primary md-raised" @click="search">Искать</md-button>
+      <md-button class="md-primary md-raised" @click="randomMeal">Случайный</md-button>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     return {
       filters: {
         text:'',
-        mealType: "TYPE_ALL",
+        mealType: 'TYPE_ALL',
         searchInRecipe: false
       },
       sending: false
