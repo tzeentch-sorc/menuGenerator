@@ -1,5 +1,6 @@
 package edu.netcracker.menugenerator.controllers;
 
+import edu.netcracker.menugenerator.dto.MealAdditionalDto;
 import edu.netcracker.menugenerator.dto.MealDto;
 import edu.netcracker.menugenerator.services.MealService;
 import edu.netcracker.menugenerator.util.PaginationUtil;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
 @RequestMapping("/api/meals")
 public class MealController {
@@ -29,7 +30,7 @@ public class MealController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> getMealById(@PathVariable(name = "id") Long id) {
         try {
-            return ResponseEntity.ok(mapper.map(mealService.getById(id), MealDto.class));
+            return ResponseEntity.ok(mapper.map(mealService.getById(id), MealAdditionalDto.class));
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

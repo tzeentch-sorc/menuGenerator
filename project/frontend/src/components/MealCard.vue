@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MealInfo v-if="showDialog" :mealItem="parentData" @closeInfo="showDialog = false"/>
-    <md-card md-with-hover @click.native="showDialog = true">
+    <MealInfo v-if="showDialog" :mealItem="parentData" :additional="item" @closeInfo="showDialog = false"/>
+    <md-card md-with-hover @click.native="openDialog">
       <md-ripple>
         <md-card-media>
           <img :src="parentData.picture">
@@ -19,6 +19,7 @@
 <script>
 import MealInfo from "@/components/MealInfo";
 import MealStatsTable from "@/components/MealStatsTable";
+import MealService from "@/services/meal.service"
 export default {
   name: 'MealCard',
   components: {MealStatsTable, MealInfo},
@@ -26,8 +27,26 @@ export default {
     parentData: Object
   },
   data: () => ({
-    showDialog: false
-  })
+    showDialog: false,
+    item: {},
+    loadedItem: false
+  }),
+  methods: {
+    openDialog(){
+      if(!this.loadedItem)
+        this.loadItem();
+      this.showDialog = true;
+    },
+    loadItem(){
+      MealService.getById(this.parentData.id).then(
+          response => {
+            this.item = response.data;
+            this.item.recipe = this.item.recipe.replace(/([.?!])\s*(?=[0-9])/g, "$1|").split("|");
+            this.loadedItem = true;
+          }
+      )
+    }
+  }
 }
 
 </script>

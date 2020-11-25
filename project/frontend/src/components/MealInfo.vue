@@ -18,15 +18,15 @@
                 <md-table>
                   <md-table-row>
                     <md-table-cell>Порций</md-table-cell>
-                    <md-table-cell>{{mealItem.portions}} шт</md-table-cell>
+                    <md-table-cell>{{additional.portions}} шт</md-table-cell>
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Калорий в порции</md-table-cell>
-                    <md-table-cell>{{mealItem.calories}} ккал</md-table-cell>
+                    <md-table-cell>{{additional.calories}} ккал</md-table-cell>
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Вес порции</md-table-cell>
-                    <md-table-cell>{{mealItem.weight}} г</md-table-cell>
+                    <md-table-cell>{{additional.weight}} г</md-table-cell>
                   </md-table-row>
                 </md-table>
               </md-tab>
@@ -38,7 +38,7 @@
       <md-dialog-content class="md-scrollbar">
         <md-tabs>
           <md-tab md-label="Рецепт">
-            <p class="recipe" v-for="string in this.dividedRecipe" v-bind:key="string"> {{string}} </p>
+            <div class="recipe" v-for="str in additional.recipe" v-bind:key="str"> {{str}} </div>
           </md-tab>
           <md-tab md-label="Ингредиенты">
             Coming Soon
@@ -58,27 +58,21 @@ export default {
   name: "MealInfo",
   components: {MealStatsTable},
   props:{
-    mealItem: Object
+    mealItem: Object,
+    additional: Object
   },
   data() {
     return {
-      message: '',
-      showDialog: true,
-      dividedRecipe: []
+      showDialog: false,
     };
   },
   mounted() {
-    this.message = '';
     this.showDialog = true;
-    this.divideRecipe();
   },
   methods: {
     closeInfo: function(){
       this.$emit('closeInfo', {});
       this.showDialog = false;
-    },
-    divideRecipe: function (){
-      this.dividedRecipe = this.mealItem.recipe.replace(/([.?!])\s*(?=[0-9])/g, "$1|").split("|");
     }
   }
 };
