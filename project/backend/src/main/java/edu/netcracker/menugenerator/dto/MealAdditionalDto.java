@@ -1,8 +1,11 @@
 package edu.netcracker.menugenerator.dto;
 
+import edu.netcracker.menugenerator.entity.MealProduct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +16,5 @@ public class MealAdditionalDto {
     private int calories;
     private int portions;
     private int weight;
+    private List<MealProduct> mealProducts;
 }

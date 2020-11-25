@@ -1,5 +1,8 @@
 package edu.netcracker.menugenerator.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import edu.netcracker.menugenerator.util.MealType;
 import lombok.Data;
@@ -8,6 +11,10 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,6 +24,7 @@ import javax.validation.constraints.Size;
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private long id;
 
     @NotBlank
@@ -40,11 +48,7 @@ public class Meal {
 
     private String picture;
 
-  /*  @ManyToMany
-    @JoinTable(	name = "productInMeal",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "meal_id"))
-    private List<Product> ingredients;
-*/
-
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<MealProduct> mealProducts = new ArrayList<>();
 }

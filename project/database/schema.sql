@@ -5,7 +5,7 @@
 -- Dumped from database version 10.14 (Ubuntu 10.14-1.pgdg18.04+1)
 -- Dumped by pg_dump version 13.0 (Ubuntu 13.0-1.pgdg18.04+1)
 
--- Started on 2020-11-24 00:48:42 MSK
+-- Started on 2020-11-25 15:03:06 MSK
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -75,7 +75,7 @@ CREATE SEQUENCE public.meal_id_seq
 ALTER TABLE public.meal_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3017 (class 0 OID 0)
+-- TOC entry 3019 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: meal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -143,7 +143,7 @@ CREATE SEQUENCE public.product_id_seq
 ALTER TABLE public.product_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3018 (class 0 OID 0)
+-- TOC entry 3020 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -157,8 +157,8 @@ ALTER SEQUENCE public.product_id_seq OWNED BY public.product.id;
 --
 
 CREATE TABLE public.product_in_meal (
-    product_id integer,
-    meal_id integer,
+    product_id integer NOT NULL,
+    meal_id integer NOT NULL,
     weight integer
 );
 
@@ -195,7 +195,7 @@ CREATE SEQUENCE public.roles_id_seq
 ALTER TABLE public.roles_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3019 (class 0 OID 0)
+-- TOC entry 3021 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -295,7 +295,7 @@ CREATE SEQUENCE public.users_id_seq
 ALTER TABLE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3020 (class 0 OID 0)
+-- TOC entry 3022 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -304,7 +304,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 2836 (class 2604 OID 24921)
+-- TOC entry 2836 (class 2604 OID 32953)
 -- Name: meal id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -312,7 +312,7 @@ ALTER TABLE ONLY public.meal ALTER COLUMN id SET DEFAULT nextval('public.meal_id
 
 
 --
--- TOC entry 2837 (class 2604 OID 24922)
+-- TOC entry 2837 (class 2604 OID 32954)
 -- Name: product id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -320,7 +320,7 @@ ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.prod
 
 
 --
--- TOC entry 2838 (class 2604 OID 24923)
+-- TOC entry 2838 (class 2604 OID 32955)
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -328,7 +328,7 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
--- TOC entry 2839 (class 2604 OID 24924)
+-- TOC entry 2839 (class 2604 OID 32956)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -336,7 +336,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2997 (class 0 OID 24769)
+-- TOC entry 2999 (class 0 OID 24769)
 -- Dependencies: 196
 -- Data for Name: meal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -376,7 +376,7 @@ COPY public.meal (id, name, recipe, calories, portions, proteins, fats, carbohyd
 
 
 --
--- TOC entry 2999 (class 0 OID 24780)
+-- TOC entry 3001 (class 0 OID 24780)
 -- Dependencies: 198
 -- Data for Name: meals_in_menu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -386,7 +386,7 @@ COPY public.meals_in_menu (menu_id, meal_id) FROM stdin;
 
 
 --
--- TOC entry 3000 (class 0 OID 24783)
+-- TOC entry 3002 (class 0 OID 24783)
 -- Dependencies: 199
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -472,7 +472,7 @@ COPY public.product (id, name, calories, proteins, fats, carbohydrates) FROM std
 
 
 --
--- TOC entry 3001 (class 0 OID 24786)
+-- TOC entry 3003 (class 0 OID 24786)
 -- Dependencies: 200
 -- Data for Name: product_blacklist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -482,7 +482,7 @@ COPY public.product_blacklist (user_id, product_id) FROM stdin;
 
 
 --
--- TOC entry 3003 (class 0 OID 24791)
+-- TOC entry 3005 (class 0 OID 24791)
 -- Dependencies: 202
 -- Data for Name: product_in_meal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -708,1111 +708,11 @@ COPY public.product_in_meal (product_id, meal_id, weight) FROM stdin;
 30	30	20
 7	30	400
 69	30	400
-1	1	200
-2	1	50
-3	1	10
-4	1	10
-5	2	200
-6	2	200
-7	2	120
-8	2	320
-9	2	40
-2	2	100
-10	2	20
-4	2	3
-11	2	5
-12	2	80
-13	3	500
-2	3	50
-10	3	50
-14	3	10
-11	3	5
-15	3	3
-16	4	600
-17	4	100
-15	4	3
-11	4	5
-18	4	10
-19	4	100
-20	5	50
-7	5	200
-2	5	50
-14	5	20
-11	5	3
-18	5	5
-21	5	5
-22	6	400
-23	6	400
-5	6	80
-17	6	100
-24	6	100
-25	6	5
-18	6	20
-26	7	500
-17	7	300
-3	7	40
-14	7	20
-19	7	200
-7	7	100
-9	7	10
-11	7	5
-15	7	3
-27	8	120
-28	8	5
-29	8	10
-30	8	5
-27	9	400
-31	9	200
-17	9	300
-30	9	30
-14	9	20
-9	9	10
-32	9	3
-11	9	5
-33	10	100
-34	10	300
-35	10	300
-36	10	20
-37	10	40
-11	10	5
-15	10	2
-38	11	600
-3	11	40
-39	11	40
-40	11	40
-41	11	40
-42	11	25
-43	11	150
-15	11	3
-11	11	5
-44	12	300
-27	12	200
-17	12	100
-45	12	100
-12	12	100
-18	12	30
-36	12	5
-11	12	3
-46	12	1
-15	12	1
-23	13	600
-7	13	500
-17	13	300
-14	13	10
-24	13	40
-47	13	600
-32	13	3
-11	13	3
-48	13	3
-12	13	50
-49	14	110
-7	14	250
-14	14	10
-9	14	20
-11	14	3
-50	14	20
-51	14	20
-6	14	250
-2	15	100
-14	15	10
-52	15	70
-53	15	60
-52	16	120
-54	16	120
-55	16	150
-56	16	30
-13	17	500
-17	17	150
-45	17	200
-4	17	10
-30	17	10
-24	17	50
-57	17	50
-15	17	3
-11	17	5
-18	17	10
-58	17	10
-59	18	300
-54	18	200
-52	18	200
-21	18	20
-36	18	10
-54	19	400
-60	19	400
-41	19	10
-9	19	5
-36	19	5
-35	20	100
-6	20	45
-61	20	15
-27	20	100
-54	21	100
-2	21	50
-62	21	50
-63	21	100
-4	21	10
-42	22	0
-4	22	198
-9	22	5
-41	22	0
-11	22	5
-64	22	3
-15	22	1
-65	23	400
-66	23	200
-67	23	200
-45	23	100
-17	23	100
-7	23	1000
-68	23	50
-69	24	200
-70	24	100
-45	24	100
-52	24	100
-71	24	100
-72	24	100
-7	24	800
-17	24	100
-73	24	3
-54	24	100
-33	25	100
-34	25	100
-45	25	100
-59	25	100
-67	25	100
-54	25	100
-17	25	100
-22	25	100
-30	25	20
-18	25	20
-7	25	1000
-19	25	80
-43	26	400
-74	26	300
-67	26	200
-45	26	100
-17	26	100
-54	26	100
-75	26	30
-21	26	20
-7	26	400
-19	26	40
-4	26	10
-65	27	400
-67	27	100
-45	27	100
-17	27	100
-21	27	20
-18	27	20
-7	27	600
-76	27	50
-69	28	200
-11	28	10
-30	28	10
-18	28	10
-21	28	10
-4	28	5
-52	29	350
-54	29	850
-17	29	200
-74	29	500
-55	29	500
-30	29	10
-36	29	20
-34	30	200
-45	30	100
-59	30	100
-67	30	100
-17	30	100
-54	30	100
-30	30	20
-7	30	400
-69	30	400
-1	1	200
-2	1	50
-3	1	10
-4	1	10
-5	2	200
-6	2	200
-7	2	120
-8	2	320
-9	2	40
-2	2	100
-10	2	20
-4	2	3
-11	2	5
-12	2	80
-13	3	500
-2	3	50
-10	3	50
-14	3	10
-11	3	5
-15	3	3
-16	4	600
-17	4	100
-15	4	3
-11	4	5
-18	4	10
-19	4	100
-20	5	50
-7	5	200
-2	5	50
-14	5	20
-11	5	3
-18	5	5
-21	5	5
-22	6	400
-23	6	400
-5	6	80
-17	6	100
-24	6	100
-25	6	5
-18	6	20
-26	7	500
-17	7	300
-3	7	40
-14	7	20
-19	7	200
-7	7	100
-9	7	10
-11	7	5
-15	7	3
-27	8	120
-28	8	5
-29	8	10
-30	8	5
-27	9	400
-31	9	200
-17	9	300
-30	9	30
-14	9	20
-9	9	10
-32	9	3
-11	9	5
-33	10	100
-34	10	300
-35	10	300
-36	10	20
-37	10	40
-11	10	5
-15	10	2
-38	11	600
-3	11	40
-39	11	40
-40	11	40
-41	11	40
-42	11	25
-43	11	150
-15	11	3
-11	11	5
-44	12	300
-27	12	200
-17	12	100
-45	12	100
-12	12	100
-18	12	30
-36	12	5
-11	12	3
-46	12	1
-15	12	1
-23	13	600
-7	13	500
-17	13	300
-14	13	10
-24	13	40
-47	13	600
-32	13	3
-11	13	3
-48	13	3
-12	13	50
-49	14	110
-7	14	250
-14	14	10
-9	14	20
-11	14	3
-50	14	20
-51	14	20
-6	14	250
-2	15	100
-14	15	10
-52	15	70
-53	15	60
-52	16	120
-54	16	120
-55	16	150
-56	16	30
-13	17	500
-17	17	150
-45	17	200
-4	17	10
-30	17	10
-24	17	50
-57	17	50
-15	17	3
-11	17	5
-18	17	10
-58	17	10
-59	18	300
-54	18	200
-52	18	200
-21	18	20
-36	18	10
-54	19	400
-60	19	400
-41	19	10
-9	19	5
-36	19	5
-35	20	100
-6	20	45
-61	20	15
-27	20	100
-54	21	100
-2	21	50
-62	21	50
-63	21	100
-4	21	10
-42	22	0
-4	22	198
-9	22	5
-41	22	0
-11	22	5
-64	22	3
-15	22	1
-65	23	400
-66	23	200
-67	23	200
-45	23	100
-17	23	100
-7	23	1000
-68	23	50
-69	24	200
-70	24	100
-45	24	100
-52	24	100
-71	24	100
-72	24	100
-7	24	800
-17	24	100
-73	24	3
-54	24	100
-33	25	100
-34	25	100
-45	25	100
-59	25	100
-67	25	100
-54	25	100
-17	25	100
-22	25	100
-30	25	20
-18	25	20
-7	25	1000
-19	25	80
-43	26	400
-74	26	300
-67	26	200
-45	26	100
-17	26	100
-54	26	100
-75	26	30
-21	26	20
-7	26	400
-19	26	40
-4	26	10
-65	27	400
-67	27	100
-45	27	100
-17	27	100
-21	27	20
-18	27	20
-7	27	600
-76	27	50
-69	28	200
-11	28	10
-30	28	10
-18	28	10
-21	28	10
-4	28	5
-52	29	350
-54	29	850
-17	29	200
-74	29	500
-55	29	500
-30	29	10
-36	29	20
-34	30	200
-45	30	100
-59	30	100
-67	30	100
-17	30	100
-54	30	100
-30	30	20
-7	30	400
-69	30	400
-1	1	200
-2	1	50
-3	1	10
-4	1	10
-5	2	200
-6	2	200
-7	2	120
-8	2	320
-9	2	40
-2	2	100
-10	2	20
-4	2	3
-11	2	5
-12	2	80
-13	3	500
-2	3	50
-10	3	50
-14	3	10
-11	3	5
-15	3	3
-16	4	600
-17	4	100
-15	4	3
-11	4	5
-18	4	10
-19	4	100
-20	5	50
-7	5	200
-2	5	50
-14	5	20
-11	5	3
-18	5	5
-21	5	5
-22	6	400
-23	6	400
-5	6	80
-17	6	100
-24	6	100
-25	6	5
-18	6	20
-26	7	500
-17	7	300
-3	7	40
-14	7	20
-19	7	200
-7	7	100
-9	7	10
-11	7	5
-15	7	3
-27	8	120
-28	8	5
-29	8	10
-30	8	5
-27	9	400
-31	9	200
-17	9	300
-30	9	30
-14	9	20
-9	9	10
-32	9	3
-11	9	5
-33	10	100
-34	10	300
-35	10	300
-36	10	20
-37	10	40
-11	10	5
-15	10	2
-38	11	600
-3	11	40
-39	11	40
-40	11	40
-41	11	40
-42	11	25
-43	11	150
-15	11	3
-11	11	5
-44	12	300
-27	12	200
-17	12	100
-45	12	100
-12	12	100
-18	12	30
-36	12	5
-11	12	3
-46	12	1
-15	12	1
-23	13	600
-7	13	500
-17	13	300
-14	13	10
-24	13	40
-47	13	600
-32	13	3
-11	13	3
-48	13	3
-12	13	50
-49	14	110
-7	14	250
-14	14	10
-9	14	20
-11	14	3
-50	14	20
-51	14	20
-6	14	250
-2	15	100
-14	15	10
-52	15	70
-53	15	60
-52	16	120
-54	16	120
-55	16	150
-56	16	30
-13	17	500
-17	17	150
-45	17	200
-4	17	10
-30	17	10
-24	17	50
-57	17	50
-15	17	3
-11	17	5
-18	17	10
-58	17	10
-59	18	300
-54	18	200
-52	18	200
-21	18	20
-36	18	10
-54	19	400
-60	19	400
-41	19	10
-9	19	5
-36	19	5
-35	20	100
-6	20	45
-61	20	15
-27	20	100
-54	21	100
-2	21	50
-62	21	50
-63	21	100
-4	21	10
-42	22	0
-4	22	198
-9	22	5
-41	22	0
-11	22	5
-64	22	3
-15	22	1
-65	23	400
-66	23	200
-67	23	200
-45	23	100
-17	23	100
-7	23	1000
-68	23	50
-69	24	200
-70	24	100
-45	24	100
-52	24	100
-71	24	100
-72	24	100
-7	24	800
-17	24	100
-73	24	3
-54	24	100
-33	25	100
-34	25	100
-45	25	100
-59	25	100
-67	25	100
-54	25	100
-17	25	100
-22	25	100
-30	25	20
-18	25	20
-7	25	1000
-19	25	80
-43	26	400
-74	26	300
-67	26	200
-45	26	100
-17	26	100
-54	26	100
-75	26	30
-21	26	20
-7	26	400
-19	26	40
-4	26	10
-65	27	400
-67	27	100
-45	27	100
-17	27	100
-21	27	20
-18	27	20
-7	27	600
-76	27	50
-69	28	200
-11	28	10
-30	28	10
-18	28	10
-21	28	10
-4	28	5
-52	29	350
-54	29	850
-17	29	200
-74	29	500
-55	29	500
-30	29	10
-36	29	20
-34	30	200
-45	30	100
-59	30	100
-67	30	100
-17	30	100
-54	30	100
-30	30	20
-7	30	400
-69	30	400
-1	1	200
-2	1	50
-3	1	10
-4	1	10
-5	2	200
-6	2	200
-7	2	120
-8	2	320
-9	2	40
-2	2	100
-10	2	20
-4	2	3
-11	2	5
-12	2	80
-13	3	500
-2	3	50
-10	3	50
-14	3	10
-11	3	5
-15	3	3
-16	4	600
-17	4	100
-15	4	3
-11	4	5
-18	4	10
-19	4	100
-20	5	50
-7	5	200
-2	5	50
-14	5	20
-11	5	3
-18	5	5
-21	5	5
-22	6	400
-23	6	400
-5	6	80
-17	6	100
-24	6	100
-25	6	5
-18	6	20
-26	7	500
-17	7	300
-3	7	40
-14	7	20
-19	7	200
-7	7	100
-9	7	10
-11	7	5
-15	7	3
-27	8	120
-28	8	5
-29	8	10
-30	8	5
-27	9	400
-31	9	200
-17	9	300
-30	9	30
-14	9	20
-9	9	10
-32	9	3
-11	9	5
-33	10	100
-34	10	300
-35	10	300
-36	10	20
-37	10	40
-11	10	5
-15	10	2
-38	11	600
-3	11	40
-39	11	40
-40	11	40
-41	11	40
-42	11	25
-43	11	150
-15	11	3
-11	11	5
-44	12	300
-27	12	200
-17	12	100
-45	12	100
-12	12	100
-18	12	30
-36	12	5
-11	12	3
-46	12	1
-15	12	1
-23	13	600
-7	13	500
-17	13	300
-14	13	10
-24	13	40
-47	13	600
-32	13	3
-11	13	3
-48	13	3
-12	13	50
-49	14	110
-7	14	250
-14	14	10
-9	14	20
-11	14	3
-50	14	20
-51	14	20
-6	14	250
-2	15	100
-14	15	10
-52	15	70
-53	15	60
-52	16	120
-54	16	120
-55	16	150
-56	16	30
-13	17	500
-17	17	150
-45	17	200
-4	17	10
-30	17	10
-24	17	50
-57	17	50
-15	17	3
-11	17	5
-18	17	10
-58	17	10
-59	18	300
-54	18	200
-52	18	200
-21	18	20
-36	18	10
-54	19	400
-60	19	400
-41	19	10
-9	19	5
-36	19	5
-35	20	100
-6	20	45
-61	20	15
-27	20	100
-54	21	100
-2	21	50
-62	21	50
-63	21	100
-4	21	10
-42	22	0
-4	22	198
-9	22	5
-41	22	0
-11	22	5
-64	22	3
-15	22	1
-65	23	400
-66	23	200
-67	23	200
-45	23	100
-17	23	100
-7	23	1000
-68	23	50
-69	24	200
-70	24	100
-45	24	100
-52	24	100
-71	24	100
-72	24	100
-7	24	800
-17	24	100
-73	24	3
-54	24	100
-33	25	100
-34	25	100
-45	25	100
-59	25	100
-67	25	100
-54	25	100
-17	25	100
-22	25	100
-30	25	20
-18	25	20
-7	25	1000
-19	25	80
-43	26	400
-74	26	300
-67	26	200
-45	26	100
-17	26	100
-54	26	100
-75	26	30
-21	26	20
-7	26	400
-19	26	40
-4	26	10
-65	27	400
-67	27	100
-45	27	100
-17	27	100
-21	27	20
-18	27	20
-7	27	600
-76	27	50
-69	28	200
-11	28	10
-30	28	10
-18	28	10
-21	28	10
-4	28	5
-52	29	350
-54	29	850
-17	29	200
-74	29	500
-55	29	500
-30	29	10
-36	29	20
-34	30	200
-45	30	100
-59	30	100
-67	30	100
-17	30	100
-54	30	100
-30	30	20
-7	30	400
-69	30	400
-1	1	200
-2	1	50
-3	1	10
-4	1	10
-5	2	200
-6	2	200
-7	2	120
-8	2	320
-9	2	40
-2	2	100
-10	2	20
-4	2	3
-11	2	5
-12	2	80
-13	3	500
-2	3	50
-10	3	50
-14	3	10
-11	3	5
-15	3	3
-16	4	600
-17	4	100
-15	4	3
-11	4	5
-18	4	10
-19	4	100
-20	5	50
-7	5	200
-2	5	50
-14	5	20
-11	5	3
-18	5	5
-21	5	5
-22	6	400
-23	6	400
-5	6	80
-17	6	100
-24	6	100
-25	6	5
-18	6	20
-26	7	500
-17	7	300
-3	7	40
-14	7	20
-19	7	200
-7	7	100
-9	7	10
-11	7	5
-15	7	3
-27	8	120
-28	8	5
-29	8	10
-30	8	5
-27	9	400
-31	9	200
-17	9	300
-30	9	30
-14	9	20
-9	9	10
-32	9	3
-11	9	5
-33	10	100
-34	10	300
-35	10	300
-36	10	20
-37	10	40
-11	10	5
-15	10	2
-38	11	600
-3	11	40
-39	11	40
-40	11	40
-41	11	40
-42	11	25
-43	11	150
-15	11	3
-11	11	5
-44	12	300
-27	12	200
-17	12	100
-45	12	100
-12	12	100
-18	12	30
-36	12	5
-11	12	3
-46	12	1
-15	12	1
-23	13	600
-7	13	500
-17	13	300
-14	13	10
-24	13	40
-47	13	600
-32	13	3
-11	13	3
-48	13	3
-12	13	50
-49	14	110
-7	14	250
-14	14	10
-9	14	20
-11	14	3
-50	14	20
-51	14	20
-6	14	250
-2	15	100
-14	15	10
-52	15	70
-53	15	60
-52	16	120
-54	16	120
-55	16	150
-56	16	30
-13	17	500
-17	17	150
-45	17	200
-4	17	10
-30	17	10
-24	17	50
-57	17	50
-15	17	3
-11	17	5
-18	17	10
-58	17	10
-59	18	300
-54	18	200
-52	18	200
-21	18	20
-36	18	10
-54	19	400
-60	19	400
-41	19	10
-9	19	5
-36	19	5
-35	20	100
-6	20	45
-61	20	15
-27	20	100
-54	21	100
-2	21	50
-62	21	50
-63	21	100
-4	21	10
-42	22	0
-4	22	198
-9	22	5
-41	22	0
-11	22	5
-64	22	3
-15	22	1
-65	23	400
-66	23	200
-67	23	200
-45	23	100
-17	23	100
-7	23	1000
-68	23	50
-69	24	200
-70	24	100
-45	24	100
-52	24	100
-71	24	100
-72	24	100
-7	24	800
-17	24	100
-73	24	3
-54	24	100
-33	25	100
-34	25	100
-45	25	100
-59	25	100
-67	25	100
-54	25	100
-17	25	100
-22	25	100
-30	25	20
-18	25	20
-7	25	1000
-19	25	80
-43	26	400
-74	26	300
-67	26	200
-45	26	100
-17	26	100
-54	26	100
-75	26	30
-21	26	20
-7	26	400
-19	26	40
-4	26	10
-65	27	400
-67	27	100
-45	27	100
-17	27	100
-21	27	20
-18	27	20
-7	27	600
-76	27	50
-69	28	200
-11	28	10
-30	28	10
-18	28	10
-21	28	10
-4	28	5
-52	29	350
-54	29	850
-17	29	200
-74	29	500
-55	29	500
-30	29	10
-36	29	20
-34	30	200
-45	30	100
-59	30	100
-67	30	100
-17	30	100
-54	30	100
-30	30	20
-7	30	400
-69	30	400
 \.
 
 
 --
--- TOC entry 3004 (class 0 OID 24794)
+-- TOC entry 3006 (class 0 OID 24794)
 -- Dependencies: 203
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1824,7 +724,7 @@ COPY public.roles (id, name) FROM stdin;
 
 
 --
--- TOC entry 3006 (class 0 OID 24799)
+-- TOC entry 3008 (class 0 OID 24799)
 -- Dependencies: 205
 -- Data for Name: saved_menu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1834,7 +734,7 @@ COPY public.saved_menu (id, user_id, name, description) FROM stdin;
 
 
 --
--- TOC entry 3007 (class 0 OID 24802)
+-- TOC entry 3009 (class 0 OID 24802)
 -- Dependencies: 206
 -- Data for Name: user_details; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1846,7 +746,7 @@ COPY public.user_details (id, height, weight, age, "isMale", activity) FROM stdi
 
 
 --
--- TOC entry 3008 (class 0 OID 24805)
+-- TOC entry 3010 (class 0 OID 24805)
 -- Dependencies: 207
 -- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1860,7 +760,7 @@ COPY public.user_roles (user_id, role_id) FROM stdin;
 
 
 --
--- TOC entry 3009 (class 0 OID 24808)
+-- TOC entry 3011 (class 0 OID 24808)
 -- Dependencies: 208
 -- Data for Name: user_to_meal_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1870,7 +770,7 @@ COPY public.user_to_meal_list (user_id, meal_id, "isBanned") FROM stdin;
 
 
 --
--- TOC entry 3010 (class 0 OID 24811)
+-- TOC entry 3012 (class 0 OID 24811)
 -- Dependencies: 209
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1882,7 +782,7 @@ COPY public.users (id, email, password, username, user_details_id) FROM stdin;
 
 
 --
--- TOC entry 3021 (class 0 OID 0)
+-- TOC entry 3023 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: meal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1891,7 +791,7 @@ SELECT pg_catalog.setval('public.meal_id_seq', 30, true);
 
 
 --
--- TOC entry 3022 (class 0 OID 0)
+-- TOC entry 3024 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1900,7 +800,7 @@ SELECT pg_catalog.setval('public.product_id_seq', 1, false);
 
 
 --
--- TOC entry 3023 (class 0 OID 0)
+-- TOC entry 3025 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1909,7 +809,7 @@ SELECT pg_catalog.setval('public.roles_id_seq', 2, true);
 
 
 --
--- TOC entry 3024 (class 0 OID 0)
+-- TOC entry 3026 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1927,7 +827,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2857 (class 2606 OID 24823)
+-- TOC entry 2859 (class 2606 OID 24823)
 -- Name: user_to_meal_list meal_list; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1954,6 +854,15 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
+-- TOC entry 2849 (class 2606 OID 32952)
+-- Name: product_in_meal product_in_meal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_in_meal
+    ADD CONSTRAINT product_in_meal_pkey PRIMARY KEY (product_id, meal_id);
+
+
+--
 -- TOC entry 2845 (class 2606 OID 24831)
 -- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -1963,7 +872,7 @@ ALTER TABLE ONLY public.product
 
 
 --
--- TOC entry 2849 (class 2606 OID 24833)
+-- TOC entry 2851 (class 2606 OID 24833)
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1972,7 +881,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 2851 (class 2606 OID 24835)
+-- TOC entry 2853 (class 2606 OID 24835)
 -- Name: saved_menu saved_id; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1981,7 +890,7 @@ ALTER TABLE ONLY public.saved_menu
 
 
 --
--- TOC entry 2859 (class 2606 OID 24837)
+-- TOC entry 2861 (class 2606 OID 24837)
 -- Name: users uk6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1990,7 +899,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2861 (class 2606 OID 24839)
+-- TOC entry 2863 (class 2606 OID 24839)
 -- Name: users ukr43af9ap4edm43mmtq01oddj6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1999,7 +908,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2853 (class 2606 OID 24841)
+-- TOC entry 2855 (class 2606 OID 24841)
 -- Name: user_details user_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2008,7 +917,7 @@ ALTER TABLE ONLY public.user_details
 
 
 --
--- TOC entry 2855 (class 2606 OID 24911)
+-- TOC entry 2857 (class 2606 OID 24911)
 -- Name: user_roles user_role_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2017,7 +926,7 @@ ALTER TABLE ONLY public.user_roles
 
 
 --
--- TOC entry 2863 (class 2606 OID 24843)
+-- TOC entry 2865 (class 2606 OID 24843)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2026,7 +935,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2864 (class 2606 OID 24845)
+-- TOC entry 2866 (class 2606 OID 24845)
 -- Name: meals_in_menu meal_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2035,7 +944,7 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
--- TOC entry 2873 (class 2606 OID 24855)
+-- TOC entry 2875 (class 2606 OID 24855)
 -- Name: user_to_meal_list meal_ud_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2044,7 +953,7 @@ ALTER TABLE ONLY public.user_to_meal_list
 
 
 --
--- TOC entry 2865 (class 2606 OID 24860)
+-- TOC entry 2867 (class 2606 OID 24860)
 -- Name: meals_in_menu menu_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2053,7 +962,7 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
--- TOC entry 2866 (class 2606 OID 24865)
+-- TOC entry 2868 (class 2606 OID 24865)
 -- Name: product_blacklist product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2062,7 +971,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2868 (class 2606 OID 24870)
+-- TOC entry 2870 (class 2606 OID 24870)
 -- Name: product_in_meal productinmeal_meal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2071,7 +980,7 @@ ALTER TABLE ONLY public.product_in_meal
 
 
 --
--- TOC entry 2869 (class 2606 OID 24875)
+-- TOC entry 2871 (class 2606 OID 24875)
 -- Name: product_in_meal productinmeal_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2080,7 +989,7 @@ ALTER TABLE ONLY public.product_in_meal
 
 
 --
--- TOC entry 2875 (class 2606 OID 24880)
+-- TOC entry 2877 (class 2606 OID 24880)
 -- Name: users user_details_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2089,7 +998,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2870 (class 2606 OID 24885)
+-- TOC entry 2872 (class 2606 OID 24885)
 -- Name: saved_menu user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2098,7 +1007,7 @@ ALTER TABLE ONLY public.saved_menu
 
 
 --
--- TOC entry 2867 (class 2606 OID 24890)
+-- TOC entry 2869 (class 2606 OID 24890)
 -- Name: product_blacklist user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2107,7 +1016,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2874 (class 2606 OID 24895)
+-- TOC entry 2876 (class 2606 OID 24895)
 -- Name: user_to_meal_list user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2116,7 +1025,7 @@ ALTER TABLE ONLY public.user_to_meal_list
 
 
 --
--- TOC entry 2871 (class 2606 OID 24900)
+-- TOC entry 2873 (class 2606 OID 24900)
 -- Name: user_roles user_roles_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2125,7 +1034,7 @@ ALTER TABLE ONLY public.user_roles
 
 
 --
--- TOC entry 2872 (class 2606 OID 24905)
+-- TOC entry 2874 (class 2606 OID 24905)
 -- Name: user_roles user_roles_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2133,7 +1042,7 @@ ALTER TABLE ONLY public.user_roles
     ADD CONSTRAINT user_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-24 00:48:42 MSK
+-- Completed on 2020-11-25 15:03:07 MSK
 
 --
 -- PostgreSQL database dump complete

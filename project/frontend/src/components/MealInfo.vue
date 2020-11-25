@@ -37,11 +37,11 @@
       <md-divider/>
       <md-dialog-content class="md-scrollbar">
         <md-tabs>
+          <md-tab md-label="Ингредиенты">
+            <IngredientTable :item="additional.mealProducts"/>
+          </md-tab>
           <md-tab md-label="Рецепт">
             <div class="recipe" v-for="str in additional.recipe" v-bind:key="str"> {{str}} </div>
-          </md-tab>
-          <md-tab md-label="Ингредиенты">
-            Coming Soon
           </md-tab>
         </md-tabs>
       </md-dialog-content>
@@ -54,9 +54,10 @@
 
 <script>
 import MealStatsTable from "@/components/MealStatsTable";
+import IngredientTable from "@/components/IngredientTable";
 export default {
   name: "MealInfo",
-  components: {MealStatsTable},
+  components: {IngredientTable, MealStatsTable},
   props:{
     mealItem: Object,
     additional: Object
@@ -80,8 +81,8 @@ export default {
 
 <style lang="scss" scoped>
 .md-dialog /deep/.md-dialog-container {
-  max-width: 800px;
-  min-width: 500px;
+  max-width: 1000px;
+  min-width: 700px;
   padding: 10px;
   max-height: 700px;
   min-height: 300px;
