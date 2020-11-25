@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8080/api/meals';
+const API_URL = 'http://localhost:5002/api/meals';
 
 class MealService {
   getAll(pageNum, params){
@@ -10,6 +10,10 @@ class MealService {
 
   getById(id) {
     return axios.get(API_URL + `/${id}`);
+  }
+
+  getRandom(){
+    return axios.get(API_URL + '/random');
   }
 }
 

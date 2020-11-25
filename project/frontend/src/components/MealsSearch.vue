@@ -50,7 +50,7 @@ export default {
       this.$emit('searchRequest', params)
     },
     randomMeal: function (){
-      //TODO make get random recipe
+      this.$emit('randomSearchRequest');
     }
   }
 }

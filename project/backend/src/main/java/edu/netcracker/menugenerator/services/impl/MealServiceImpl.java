@@ -14,6 +14,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -26,7 +27,6 @@ public class MealServiceImpl implements MealService {
         this.mealRepository = mealRepository;
         this.jsonService = jsonService;
     }
-
 
     @Override
     public Slice<Meal> getAllMeals(String filters, Pageable pageable) {
@@ -55,6 +55,16 @@ public class MealServiceImpl implements MealService {
     }
     @Override
     public Meal getById(long id) throws NotFoundException{
+        return mealRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Meal by id: " + id + "not found.")
+        );
+    }
+
+    @Override
+    public Meal getRandom() throws NotFoundException {
+        long max = mealRepository.count();
+        Random r = new Random();
+        long id = r.nextInt((int)max-1)+1;
         return mealRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Meal by id: " + id + "not found.")
         );

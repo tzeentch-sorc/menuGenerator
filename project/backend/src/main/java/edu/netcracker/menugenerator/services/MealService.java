@@ -9,4 +9,6 @@ public interface MealService {
     Slice<Meal> getAllMeals(String filters, Pageable pageable);
 
     Meal getById(long id) throws NotFoundException;
+
+    Meal getRandom() throws NotFoundException;
 }

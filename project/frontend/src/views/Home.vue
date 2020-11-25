@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <MealsSearch v-on:searchRequest="onRequestReceived"/>
+    <MealsSearch v-on:searchRequest="onRequestReceived" v-on:randomSearchRequest="onRandom"/>
     <md-divider/>
     <div v-masonry transition-duration="0.15s" item-selector=".item">
       <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
@@ -21,7 +21,6 @@ export default {
   data() {
     return {
       content: [],
-      errorMsg: 'All is ok',
       hasNextPage: false,
       nextPage: 0,
       filters: null
@@ -38,18 +37,28 @@ export default {
               response => {
                 this.content.push(...response.data);
                 this.hasNextPage = response.headers['x-has-next-page'] ==='true';
-              },
-              error => {
-                this.errorMsg = (error.response && error.response.data && error.response.data.message) ||
-                    error.message ||
-                    error.toString();
               }
           );
+    },
+    loadOne(){
+      MealService.getRandom().then(
+          response => {
+            this.content.push(...[response.data]);
+            this.hasNextPage = false;
+          }
+      );
     },
     onRequestReceived(value){
       this.filters = value;
       this.content = [];
+      this.nextPage = 0;
       this.loadMore();
+    },
+    onRandom(){
+      this.content = [];
+      this.filters = null;
+      this.nextPage = 0;
+      this.loadOne();
     }
   },
   mounted() {

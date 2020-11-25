@@ -43,4 +43,13 @@ public class MealController {
         );
         return ResponseEntity.ok().headers(PaginationUtil.generateSliceHttpHeaders(meals)).body(meals.getContent());
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<?> getRandomMeal(){
+        try {
+            return ResponseEntity.ok().body(mapper.map(mealService.getRandom(), MealDto.class));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
