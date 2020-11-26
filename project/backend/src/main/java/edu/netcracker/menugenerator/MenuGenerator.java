@@ -21,20 +21,4 @@ public class MenuGenerator {
 	public static void main(String[] args) {
 		SpringApplication.run(MenuGenerator.class, args);
 	}
-
-	@Bean
-	public CommandLineRunner demo(MealRepository repository) {
-		return (args) -> {
-
-//            Long id = 5L;
-//            log.info("-------------------------------\n");
-//			Optional<Meal> mealById = repository.findById(5L);
-//			log.info(mealById.get().getMealProducts().toString());
-//			log.info("-------------------------------\n");
-//			Slice<Meal> meals = repository.findAllByType(MealType.TYPE_BREAKFAST);
-//			log.info(meals.toString());
-			//Optional<User> user = repository2.findByUsername("reign");
-			//log.info(user.toString());
-	};
-	}
 }
