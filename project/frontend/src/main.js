@@ -13,6 +13,7 @@ import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import {VueMasonryPlugin} from 'vue-masonry';
 import VueObserveVisibility from "vue-observe-visibility";
+import BackToTop from  'vue-backtotop'
 import {
   faHome,
   faUser,
@@ -29,6 +30,7 @@ Vue.use(VueMasonryPlugin)
 Vue.use(VueObserveVisibility)
 Vue.use(VeeValidate);
 Vue.use(VueMaterial);
+Vue.use(BackToTop);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);

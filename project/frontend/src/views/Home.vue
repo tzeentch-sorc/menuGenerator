@@ -1,14 +1,20 @@
 <template>
-  <div class="container">
-    <MealsSearch v-on:searchRequest="onRequestReceived" v-on:randomSearchRequest="onRandom"/>
-    <md-divider/>
-    <div v-masonry transition-duration="0.15s" item-selector=".item">
-      <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
+  <div>
+    <div class="container">
+      <MealsSearch v-on:searchRequest="onRequestReceived" v-on:randomSearchRequest="onRandom"/>
+      <md-divider/>
+      <div v-masonry transition-duration="0.15s" item-selector=".item">
+        <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
+      </div>
+      <div v-if="content.length" v-observe-visibility="handleBottom">
+        <md-progress-bar v-if="this.hasNextPage" md-mode="indeterminate"/>
+      </div>
     </div>
-    <div v-if="content.length" v-observe-visibility="handleBottom">
-      <md-progress-bar v-if="this.hasNextPage" md-mode="indeterminate"/>
-    </div>
+    <back-to-top text="Back to top" visibleoffset="500" bottom="75px" right="300px">
+      <md-icon>arrow_upward</md-icon>
+    </back-to-top>
   </div>
+
 </template>
 
 <script>
