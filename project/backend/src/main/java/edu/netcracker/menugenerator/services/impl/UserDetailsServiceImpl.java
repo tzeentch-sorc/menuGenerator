@@ -1,5 +1,5 @@
 package edu.netcracker.menugenerator.services.impl;
-
+import edu.netcracker.menugenerator.entity.UserDetailsImpl;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
