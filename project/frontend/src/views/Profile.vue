@@ -7,7 +7,7 @@
     </header>
     <p>
       <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
+      {{currentUser.token.substring(0, 20)}} ... {{currentUser.token.substr(currentUser.token.length - 20)}}
     </p>
     <p>
       <strong>Id:</strong>
@@ -21,6 +21,11 @@
     <ul>
       <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
     </ul>
+    <div v-if="noDetails">
+
+    </div>
+
+
   </div>
 </template>
 
@@ -32,7 +37,16 @@ export default {
       return this.$store.state.auth.user;
     }
   },
+  data(){
+    return {
+      noDetails: true
+    }
+  },
   mounted() {
+    if(this.currentUser.details){
+      this.noDetails = false;
+    }
+
     if (!this.currentUser) {
       this.$router.push('/login');
     }

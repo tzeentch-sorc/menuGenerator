@@ -97,7 +97,6 @@ export default {
           this.$store.dispatch('auth/register', this.user).then(
             data => {
               this.message = data.message;
-              this.successful = true;
             },
             error => {
               this.message =

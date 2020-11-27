@@ -13,13 +13,13 @@
           </router-link>
         </li>
         <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
+          <router-link to="/admin" class="nav-link">Пользователи</router-link>
         </li>
         <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+          <router-link to="/mod" class="nav-link">Рецепты</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+          <router-link v-if="currentUser" to="/user" class="nav-link">Меню</router-link>
         </li>
       </div>
 
@@ -87,14 +87,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .logo-card {
   width: 100px;
   height: 40%;
   margin: 0 5px 5px;
   display: block;
 }
-
+.nav-item{
+}
 .navbar {
   background-color: lightgrey;
 }

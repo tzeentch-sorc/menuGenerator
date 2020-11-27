@@ -46,11 +46,6 @@
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
         </div>
-        <div class="container">
-            <header class="jumbotron">
-              <h3>{{content}}</h3>
-            </header>
-        </div>
       </form>
     </div>
   </div>
