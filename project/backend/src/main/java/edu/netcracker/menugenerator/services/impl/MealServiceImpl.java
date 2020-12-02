@@ -1,19 +1,23 @@
 package edu.netcracker.menugenerator.services.impl;
 
 import edu.netcracker.menugenerator.entity.Meal;
-import edu.netcracker.menugenerator.util.MealFilters;
+import edu.netcracker.menugenerator.dto.MealFilters;
 import edu.netcracker.menugenerator.util.MealType;
 import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.services.JsonService;
 import edu.netcracker.menugenerator.services.MealService;
+import edu.netcracker.menugenerator.util.specifications.meal.MealSpecification;
+import edu.netcracker.menugenerator.util.specifications.meal.MealSpecificationsBuilder;
+import edu.netcracker.menugenerator.util.specifications.meal.SearchCriteria;
 import javassist.NotFoundException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -31,27 +35,24 @@ public class MealServiceImpl implements MealService {
     @Override
     public Slice<Meal> getAllMeals(String filters, Pageable pageable) {
         MealFilters mealFilters;
+        MealSpecificationsBuilder builder = new MealSpecificationsBuilder();
+
         if(filters == null) mealFilters = new MealFilters("", MealType.TYPE_ALL, false);
         else mealFilters = jsonService.parseMealFilters(filters);
-        if(mealFilters.getText().length() > 0){
-            if(mealFilters.getMealType() == MealType.TYPE_ALL){
-                if(mealFilters.isSearchInRecipe()){
-                    return mealRepository.findAllByRecipeIgnoreCaseContaining(mealFilters.getText(), pageable);
-                } else {
-                    return mealRepository.findAllByNameIgnoreCaseContaining(mealFilters.getText(), pageable);
-                }
-            } else {
-                if(mealFilters.isSearchInRecipe()){
-                    return mealRepository.findAllByRecipeIgnoreCaseContainingAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
-                } else {
-                    return mealRepository.findAllByNameContainingIgnoreCaseAndType(mealFilters.getText(), mealFilters.getMealType(), pageable);
-                }
+
+
+        Specification<Meal> specification;
+        if(mealFilters.getText().length() > 0) {
+            builder.with("name", ":", mealFilters.getText(), false);
+            if (!mealFilters.isSearchInRecipe()) {
+                builder.with("recipe", ":", mealFilters.getText(), true);
             }
-        } else {
-            if(mealFilters.getMealType() != MealType.TYPE_ALL) {
-                return mealRepository.findAllByType(mealFilters.getMealType(), pageable);
-            } else return mealRepository.findAll(pageable);
-        }
+            specification = builder.build();
+            if (mealFilters.getMealType() != MealType.TYPE_ALL)
+                specification = specification.and(new MealSpecification(new SearchCriteria("type", ":", mealFilters.getMealType(), false)));
+        } else specification = builder.build();
+
+        return mealRepository.findAll(specification, pageable);
     }
     @Override
     public Meal getById(long id) throws NotFoundException{

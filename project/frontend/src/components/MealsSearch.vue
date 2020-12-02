@@ -21,7 +21,7 @@
       </md-field>
     </div>
     <div class="md-layout-item">
-        <md-checkbox v-model="filters.searchInRecipe" class="md-primary">Искать по рецептам</md-checkbox>
+        <md-checkbox v-model="filters.searchInRecipe" class="md-primary">Искать только по названиям</md-checkbox>
     </div>
     <div class="buttons">
       <md-button class="md-primary md-raised" @click="search">Искать</md-button>
