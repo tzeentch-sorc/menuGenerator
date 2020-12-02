@@ -1,56 +1,49 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand">
-
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">
-            <img
-                          id="nc-logo"
-                          src="//spb.edu-netcracker.com/images/logo.png"
-                          class="logo-card"
-                  />
-          </router-link>
-        </li>
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Пользователи</router-link>
-        </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Рецепты</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">Меню</router-link>
-        </li>
-      </div>
-
-      <div v-if="!currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
+    <md-toolbar class="md-transparent">
+      <router-link to="/" class="nav-link">
+        <img
+            id="nc-logo"
+            src="../public/linkedin_banner_image_1.png"
+            class="logo-card"
+            alt="На главную"
+        />
+      </router-link>
+      <router-link v-if="showAdminBoard" to="/admin">
+        <md-button>Пользователи</md-button>
+      </router-link>
+      <router-link v-if="showModeratorBoard" to="/mod">
+        <md-button>Рецепты</md-button>
+      </router-link>
+      <router-link v-if="currentUser" to="/user">
+        <md-button>Меню</md-button>
+      </router-link>
+      <div v-if="!currentUser" class="md-toolbar-section-end">
           <router-link to="/register" class="nav-link">
-            <font-awesome-icon  />Sign Up
+            <md-button>
+              Signup
+            </md-button>
           </router-link>
-        </li>
-        <li class="nav-item">
           <router-link to="/login" class="nav-link">
-            <font-awesome-icon  />Login
+            <md-button>
+              Login
+            </md-button>
           </router-link>
-        </li>
       </div>
 
-      <div v-if="currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
+      <div v-if="currentUser" class="md-toolbar-section-end">
           <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
+            <md-button class="md-icon-button">
+              <md-icon>account_circle</md-icon>
+            </md-button>
           </router-link>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" />LogOut
+            <md-button class="md-icon-button">
+              <md-icon>exit_to_app</md-icon>
+            </md-button>
           </a>
-        </li>
       </div>
-    </nav>
-
+    </md-toolbar>
     <div class="container">
       <router-view />
     </div>
@@ -89,14 +82,9 @@ export default {
 
 <style scoped>
 .logo-card {
-  width: 100px;
+  width:90px;
   height: 40%;
   margin: 0 5px 5px;
   display: block;
-}
-.nav-item{
-}
-.navbar {
-  background-color: lightgrey;
 }
 </style>

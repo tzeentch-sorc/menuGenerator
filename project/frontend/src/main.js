@@ -6,23 +6,13 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
 import Vuex from 'vuex';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import {VueMasonryPlugin} from 'vue-masonry';
 import VueObserveVisibility from "vue-observe-visibility";
 import BackToTop from  'vue-backtotop'
-import {
-  faHome,
-  faUser,
-  faUserPlus,
-  faSignInAlt,
-  faSignOutAlt
-} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
 Vue.config.productionTip = false;
 
@@ -31,7 +21,6 @@ Vue.use(VueObserveVisibility)
 Vue.use(VeeValidate);
 Vue.use(VueMaterial);
 Vue.use(BackToTop);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);
 
