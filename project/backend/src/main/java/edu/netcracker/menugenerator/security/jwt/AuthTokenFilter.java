@@ -22,15 +22,10 @@ import edu.netcracker.menugenerator.services.impl.UserDetailsServiceImpl;
 
 @NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-
-	private JwtUtils jwtUtils;
-	private UserDetailsServiceImpl userDetailsService;
-
 	@Autowired
-	public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService){
-		this.jwtUtils = jwtUtils;
-		this.userDetailsService = userDetailsService;
-	}
+	private JwtUtils jwtUtils;
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
