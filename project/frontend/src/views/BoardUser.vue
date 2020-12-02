@@ -1,8 +1,19 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+    <div v-if="draw">
+      <md-empty-state
+          md-label="Добро пожаловать!"
+          md-icon="receipt_long"
+      >
+        <md-subheader>
+          Для того чтобы начать пользоваться меню, необходимо заполнить данные профиля
+        </md-subheader>
+        <md-button class="md-raised md-primary" @click="goToPage('/profile')">Заполнить профиль</md-button>
+      </md-empty-state>
+    </div>
+    <div v-else>
+      {{this.currentUser.details}}
+    </div>
   </div>
 </template>
 
@@ -15,6 +26,24 @@ export default {
     return {
       content: ''
     };
+  },computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    currentProfile(){
+      return this.$store.state.profileModule.profile;
+    }
+  },
+  methods:{
+    goToPage: function(page){
+      this.$router.push(page);
+    },
+    statsNotEmpty(){
+      return this.currentProfile.dailyProteins <= 0 ||
+          this.currentProfile.dailyFats <= 0 ||
+          this.currentProfile.dailyCarbohydrates <= 0 ||
+          this.currentProfile.dailyCalories <= 0;
+    }
   },
   mounted() {
     UserService.getUserBoard().then(
@@ -31,3 +60,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.container{
+  margin-top: 5%;
+  align-content: center;
+}
+</style>
