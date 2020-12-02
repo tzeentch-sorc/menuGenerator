@@ -1,5 +1,6 @@
-package edu.netcracker.menugenerator.util;
+package edu.netcracker.menugenerator.dto;
 
+import edu.netcracker.menugenerator.util.MealType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/meals/';
+const API_URL = 'http://localhost:5002/api/user/';
 
 class UserService {
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+    return axios.get(API_URL, { headers: authHeader() });
   }
 
   // getModeratorBoard() {

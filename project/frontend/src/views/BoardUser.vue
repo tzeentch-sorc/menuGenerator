@@ -24,7 +24,8 @@ export default {
   name: 'User',
   data() {
     return {
-      content: ''
+      content: '',
+      draw: true
     };
   },computed: {
     currentUser() {
@@ -45,18 +46,25 @@ export default {
           this.currentProfile.dailyCalories <= 0;
     }
   },
+  beforeMount() {
+    this.draw = this.statsNotEmpty();
+  },
   mounted() {
-    UserService.getUserBoard().then(
-      response => {
-        this.content = response.data;
-      },
-      error => {
-        this.content =
-          (error.response && error.response.data && error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    if(!this.currentUser) {
+      this.goToPage('/login');
+    }
+
+    // UserService.getUserBoard().then(
+    //   response => {
+    //     this.content = response.data;
+    //   },
+    //   error => {
+    //     this.content =
+    //       (error.response && error.response.data && error.response.data.message) ||
+    //       error.message ||
+    //       error.toString();
+    //   }
+    // );
   }
 };
 </script>

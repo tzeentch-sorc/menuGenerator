@@ -5,7 +5,7 @@
 -- Dumped from database version 10.14 (Ubuntu 10.14-1.pgdg18.04+1)
 -- Dumped by pg_dump version 13.0 (Ubuntu 13.0-1.pgdg18.04+1)
 
--- Started on 2020-11-25 15:03:06 MSK
+-- Started on 2020-12-01 20:20:33 MSK
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 636 (class 1247 OID 24929)
+-- TOC entry 637 (class 1247 OID 24929)
 -- Name: meal_type_enum; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -33,6 +33,21 @@ CREATE TYPE public.meal_type_enum AS ENUM (
 
 
 ALTER TYPE public.meal_type_enum OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 41146)
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -75,7 +90,7 @@ CREATE SEQUENCE public.meal_id_seq
 ALTER TABLE public.meal_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3019 (class 0 OID 0)
+-- TOC entry 3023 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: meal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -143,7 +158,7 @@ CREATE SEQUENCE public.product_id_seq
 ALTER TABLE public.product_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3020 (class 0 OID 0)
+-- TOC entry 3024 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -164,6 +179,28 @@ CREATE TABLE public.product_in_meal (
 
 
 ALTER TABLE public.product_in_meal OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 24802)
+-- Name: profile; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.profile (
+    id integer NOT NULL,
+    height integer,
+    weight integer,
+    age integer,
+    activity numeric(6,3),
+    user_id integer,
+    daily_fats integer,
+    daily_carbohydrates integer,
+    daily_proteins integer,
+    daily_calories integer,
+    is_male boolean
+);
+
+
+ALTER TABLE public.profile OWNER TO postgres;
 
 --
 -- TOC entry 203 (class 1259 OID 24794)
@@ -195,7 +232,7 @@ CREATE SEQUENCE public.roles_id_seq
 ALTER TABLE public.roles_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3021 (class 0 OID 0)
+-- TOC entry 3025 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -217,23 +254,6 @@ CREATE TABLE public.saved_menu (
 
 
 ALTER TABLE public.saved_menu OWNER TO postgres;
-
---
--- TOC entry 206 (class 1259 OID 24802)
--- Name: user_details; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.user_details (
-    id integer NOT NULL,
-    height integer,
-    weight integer,
-    age integer,
-    "isMale" boolean,
-    activity numeric(6,3)
-);
-
-
-ALTER TABLE public.user_details OWNER TO postgres;
 
 --
 -- TOC entry 207 (class 1259 OID 24805)
@@ -271,8 +291,7 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying(50),
     password character varying(200),
-    username character varying(30),
-    user_details_id integer
+    username character varying(30)
 );
 
 
@@ -295,7 +314,7 @@ CREATE SEQUENCE public.users_id_seq
 ALTER TABLE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3022 (class 0 OID 0)
+-- TOC entry 3026 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -304,7 +323,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 2836 (class 2604 OID 32953)
+-- TOC entry 2838 (class 2604 OID 32953)
 -- Name: meal id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -312,7 +331,7 @@ ALTER TABLE ONLY public.meal ALTER COLUMN id SET DEFAULT nextval('public.meal_id
 
 
 --
--- TOC entry 2837 (class 2604 OID 32954)
+-- TOC entry 2839 (class 2604 OID 32954)
 -- Name: product id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -320,7 +339,7 @@ ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.prod
 
 
 --
--- TOC entry 2838 (class 2604 OID 32955)
+-- TOC entry 2840 (class 2604 OID 32955)
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -328,7 +347,7 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
--- TOC entry 2839 (class 2604 OID 32956)
+-- TOC entry 2841 (class 2604 OID 32956)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -336,7 +355,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2999 (class 0 OID 24769)
+-- TOC entry 3002 (class 0 OID 24769)
 -- Dependencies: 196
 -- Data for Name: meal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -376,7 +395,7 @@ COPY public.meal (id, name, recipe, calories, portions, proteins, fats, carbohyd
 
 
 --
--- TOC entry 3001 (class 0 OID 24780)
+-- TOC entry 3004 (class 0 OID 24780)
 -- Dependencies: 198
 -- Data for Name: meals_in_menu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -386,7 +405,7 @@ COPY public.meals_in_menu (menu_id, meal_id) FROM stdin;
 
 
 --
--- TOC entry 3002 (class 0 OID 24783)
+-- TOC entry 3005 (class 0 OID 24783)
 -- Dependencies: 199
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -472,7 +491,7 @@ COPY public.product (id, name, calories, proteins, fats, carbohydrates) FROM std
 
 
 --
--- TOC entry 3003 (class 0 OID 24786)
+-- TOC entry 3006 (class 0 OID 24786)
 -- Dependencies: 200
 -- Data for Name: product_blacklist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -482,7 +501,7 @@ COPY public.product_blacklist (user_id, product_id) FROM stdin;
 
 
 --
--- TOC entry 3005 (class 0 OID 24791)
+-- TOC entry 3008 (class 0 OID 24791)
 -- Dependencies: 202
 -- Data for Name: product_in_meal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -712,7 +731,19 @@ COPY public.product_in_meal (product_id, meal_id, weight) FROM stdin;
 
 
 --
--- TOC entry 3006 (class 0 OID 24794)
+-- TOC entry 3012 (class 0 OID 24802)
+-- Dependencies: 206
+-- Data for Name: profile; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.profile (id, height, weight, age, activity, user_id, daily_fats, daily_carbohydrates, daily_proteins, daily_calories, is_male) FROM stdin;
+1	180	90	18	1.900	2	\N	\N	\N	\N	t
+2	160	55	21	1.900	1	\N	\N	\N	\N	f
+\.
+
+
+--
+-- TOC entry 3009 (class 0 OID 24794)
 -- Dependencies: 203
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -720,11 +751,12 @@ COPY public.product_in_meal (product_id, meal_id, weight) FROM stdin;
 COPY public.roles (id, name) FROM stdin;
 1	ROLE_USER
 2	ROLE_MODERATOR
+3	ROLE_ADMIN
 \.
 
 
 --
--- TOC entry 3008 (class 0 OID 24799)
+-- TOC entry 3011 (class 0 OID 24799)
 -- Dependencies: 205
 -- Data for Name: saved_menu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -734,19 +766,7 @@ COPY public.saved_menu (id, user_id, name, description) FROM stdin;
 
 
 --
--- TOC entry 3009 (class 0 OID 24802)
--- Dependencies: 206
--- Data for Name: user_details; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.user_details (id, height, weight, age, "isMale", activity) FROM stdin;
-1	180	90	18	t	1.900
-2	160	55	21	f	1.900
-\.
-
-
---
--- TOC entry 3010 (class 0 OID 24805)
+-- TOC entry 3013 (class 0 OID 24805)
 -- Dependencies: 207
 -- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -756,11 +776,15 @@ COPY public.user_roles (user_id, role_id) FROM stdin;
 1	2
 2	1
 2	2
+2	3
+3	1
+4	1
+5	1
 \.
 
 
 --
--- TOC entry 3011 (class 0 OID 24808)
+-- TOC entry 3014 (class 0 OID 24808)
 -- Dependencies: 208
 -- Data for Name: user_to_meal_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -770,19 +794,31 @@ COPY public.user_to_meal_list (user_id, meal_id, "isBanned") FROM stdin;
 
 
 --
--- TOC entry 3012 (class 0 OID 24811)
+-- TOC entry 3015 (class 0 OID 24811)
 -- Dependencies: 209
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, email, password, username, user_details_id) FROM stdin;
-1	asdfxvxc@mail.ru	$2a$10$cQD57K.U/pKeI1b10SzNMucYsR.3coIVk5yecZg.AumtzwWXrY0Qq	mod	2
-2	reign@gmail.com	$2a$10$Lx72XK9V4dUtX6yVKEzITuNqZ3uj.idIWNmW31O236L0vKkqCTvPK	reign	1
+COPY public.users (id, email, password, username) FROM stdin;
+1	asdfxvxc@mail.ru	$2a$10$cQD57K.U/pKeI1b10SzNMucYsR.3coIVk5yecZg.AumtzwWXrY0Qq	mod
+2	reign@gmail.com	$2a$10$Lx72XK9V4dUtX6yVKEzITuNqZ3uj.idIWNmW31O236L0vKkqCTvPK	reign
+3	test@test.com	$2a$10$soXnCMGJnxyMLwZ7m6rQcu6Rvh7rOHP.WJWmyZAGdoHWebsmwXjuK	test
+4	answerkey1338@gmail.com	$2a$10$VpEB1Pb/QG6Xpq20o0sIKeSt9wDpjBs11m.aMkP0JWY39JBzZdR6u	1234567
+5	123@gmail.com	$2a$10$ArBqbtMpHWrWJqPN8MU2f.0RvHnf0w.1sUp1zL32vTzGZ2ICQf25a	123
 \.
 
 
 --
--- TOC entry 3023 (class 0 OID 0)
+-- TOC entry 3027 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 1, false);
+
+
+--
+-- TOC entry 3028 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: meal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -791,7 +827,7 @@ SELECT pg_catalog.setval('public.meal_id_seq', 30, true);
 
 
 --
--- TOC entry 3024 (class 0 OID 0)
+-- TOC entry 3029 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -800,7 +836,7 @@ SELECT pg_catalog.setval('public.product_id_seq', 1, false);
 
 
 --
--- TOC entry 3025 (class 0 OID 0)
+-- TOC entry 3030 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -809,16 +845,16 @@ SELECT pg_catalog.setval('public.roles_id_seq', 2, true);
 
 
 --
--- TOC entry 3026 (class 0 OID 0)
+-- TOC entry 3031 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_id_seq', 5, true);
 
 
 --
--- TOC entry 2847 (class 2606 OID 24821)
+-- TOC entry 2849 (class 2606 OID 24821)
 -- Name: product_blacklist blacklist; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -827,7 +863,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2859 (class 2606 OID 24823)
+-- TOC entry 2861 (class 2606 OID 24823)
 -- Name: user_to_meal_list meal_list; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -836,7 +872,7 @@ ALTER TABLE ONLY public.user_to_meal_list
 
 
 --
--- TOC entry 2841 (class 2606 OID 24825)
+-- TOC entry 2843 (class 2606 OID 24825)
 -- Name: meal meal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -845,7 +881,7 @@ ALTER TABLE ONLY public.meal
 
 
 --
--- TOC entry 2843 (class 2606 OID 24829)
+-- TOC entry 2845 (class 2606 OID 24829)
 -- Name: meals_in_menu menu_meals_id; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -854,7 +890,7 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
--- TOC entry 2849 (class 2606 OID 32952)
+-- TOC entry 2851 (class 2606 OID 32952)
 -- Name: product_in_meal product_in_meal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -863,7 +899,7 @@ ALTER TABLE ONLY public.product_in_meal
 
 
 --
--- TOC entry 2845 (class 2606 OID 24831)
+-- TOC entry 2847 (class 2606 OID 24831)
 -- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -872,7 +908,7 @@ ALTER TABLE ONLY public.product
 
 
 --
--- TOC entry 2851 (class 2606 OID 24833)
+-- TOC entry 2853 (class 2606 OID 24833)
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -881,7 +917,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 2853 (class 2606 OID 24835)
+-- TOC entry 2855 (class 2606 OID 24835)
 -- Name: saved_menu saved_id; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -890,7 +926,7 @@ ALTER TABLE ONLY public.saved_menu
 
 
 --
--- TOC entry 2861 (class 2606 OID 24837)
+-- TOC entry 2863 (class 2606 OID 24837)
 -- Name: users uk6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -899,7 +935,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2863 (class 2606 OID 24839)
+-- TOC entry 2865 (class 2606 OID 24839)
 -- Name: users ukr43af9ap4edm43mmtq01oddj6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -908,16 +944,16 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2855 (class 2606 OID 24841)
--- Name: user_details user_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2857 (class 2606 OID 24841)
+-- Name: profile user_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.user_details
+ALTER TABLE ONLY public.profile
     ADD CONSTRAINT user_details_pkey PRIMARY KEY (id);
 
 
 --
--- TOC entry 2857 (class 2606 OID 24911)
+-- TOC entry 2859 (class 2606 OID 24911)
 -- Name: user_roles user_role_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -926,7 +962,7 @@ ALTER TABLE ONLY public.user_roles
 
 
 --
--- TOC entry 2865 (class 2606 OID 24843)
+-- TOC entry 2867 (class 2606 OID 24843)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -935,7 +971,16 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2866 (class 2606 OID 24845)
+-- TOC entry 2876 (class 2606 OID 41148)
+-- Name: profile fks14jvsf9tqrcnly0afsv0ngwv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT fks14jvsf9tqrcnly0afsv0ngwv FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- TOC entry 2868 (class 2606 OID 24845)
 -- Name: meals_in_menu meal_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -944,7 +989,7 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
--- TOC entry 2875 (class 2606 OID 24855)
+-- TOC entry 2879 (class 2606 OID 24855)
 -- Name: user_to_meal_list meal_ud_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -953,7 +998,7 @@ ALTER TABLE ONLY public.user_to_meal_list
 
 
 --
--- TOC entry 2867 (class 2606 OID 24860)
+-- TOC entry 2869 (class 2606 OID 24860)
 -- Name: meals_in_menu menu_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -962,7 +1007,7 @@ ALTER TABLE ONLY public.meals_in_menu
 
 
 --
--- TOC entry 2868 (class 2606 OID 24865)
+-- TOC entry 2870 (class 2606 OID 24865)
 -- Name: product_blacklist product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -971,7 +1016,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2870 (class 2606 OID 24870)
+-- TOC entry 2872 (class 2606 OID 24870)
 -- Name: product_in_meal productinmeal_meal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -980,7 +1025,7 @@ ALTER TABLE ONLY public.product_in_meal
 
 
 --
--- TOC entry 2871 (class 2606 OID 24875)
+-- TOC entry 2873 (class 2606 OID 24875)
 -- Name: product_in_meal productinmeal_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -989,16 +1034,7 @@ ALTER TABLE ONLY public.product_in_meal
 
 
 --
--- TOC entry 2877 (class 2606 OID 24880)
--- Name: users user_details_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT user_details_fk FOREIGN KEY (user_details_id) REFERENCES public.user_details(id) NOT VALID;
-
-
---
--- TOC entry 2872 (class 2606 OID 24885)
+-- TOC entry 2874 (class 2606 OID 24885)
 -- Name: saved_menu user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1007,7 +1043,7 @@ ALTER TABLE ONLY public.saved_menu
 
 
 --
--- TOC entry 2869 (class 2606 OID 24890)
+-- TOC entry 2871 (class 2606 OID 24890)
 -- Name: product_blacklist user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1016,7 +1052,7 @@ ALTER TABLE ONLY public.product_blacklist
 
 
 --
--- TOC entry 2876 (class 2606 OID 24895)
+-- TOC entry 2880 (class 2606 OID 24895)
 -- Name: user_to_meal_list user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1025,7 +1061,16 @@ ALTER TABLE ONLY public.user_to_meal_list
 
 
 --
--- TOC entry 2873 (class 2606 OID 24900)
+-- TOC entry 2875 (class 2606 OID 41141)
+-- Name: profile user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT user_id_fk FOREIGN KEY (id) REFERENCES public.users(id) NOT VALID;
+
+
+--
+-- TOC entry 2877 (class 2606 OID 24900)
 -- Name: user_roles user_roles_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1034,7 +1079,7 @@ ALTER TABLE ONLY public.user_roles
 
 
 --
--- TOC entry 2874 (class 2606 OID 24905)
+-- TOC entry 2878 (class 2606 OID 24905)
 -- Name: user_roles user_roles_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1042,7 +1087,7 @@ ALTER TABLE ONLY public.user_roles
     ADD CONSTRAINT user_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
--- Completed on 2020-11-25 15:03:07 MSK
+-- Completed on 2020-12-01 20:20:33 MSK
 
 --
 -- PostgreSQL database dump complete
