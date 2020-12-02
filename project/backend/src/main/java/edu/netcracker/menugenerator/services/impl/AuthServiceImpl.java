@@ -4,9 +4,11 @@ import edu.netcracker.menugenerator.dto.request.LoginRequest;
 import edu.netcracker.menugenerator.dto.request.SignupRequest;
 import edu.netcracker.menugenerator.dto.response.JwtResponse;
 import edu.netcracker.menugenerator.dto.response.MessageResponse;
+import edu.netcracker.menugenerator.entity.Profile;
 import edu.netcracker.menugenerator.entity.Role;
 import edu.netcracker.menugenerator.entity.User;
 import edu.netcracker.menugenerator.entity.UserDetailsImpl;
+import edu.netcracker.menugenerator.repository.ProfileRepository;
 import edu.netcracker.menugenerator.repository.RoleRepository;
 import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.security.jwt.JwtUtils;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
 public class AuthServiceImpl implements AuthService {
 
     UserRepository userRepository;
+    ProfileRepository profileRepository;
     AuthenticationManager authenticationManager;
     RoleRepository roleRepository;
     PasswordEncoder encoder;
@@ -39,12 +42,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     public AuthServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager,
-            RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils){
+            RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils, ProfileRepository profileRepository){
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+        this.profileRepository = profileRepository;
     }
 
     @Override
@@ -112,6 +116,11 @@ public class AuthServiceImpl implements AuthService {
         }
 
         user.setRoles(roles);
+        Profile profile = new Profile();
+
+        user.setProfile(profile);
+        profile.setUser(user);
+
         userRepository.save(user);
         return new MessageResponse("User registered successfully!", true);
     }
