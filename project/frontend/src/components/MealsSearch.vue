@@ -50,6 +50,9 @@ export default {
       this.$emit('searchRequest', params)
     },
     randomMeal: function (){
+      this.filters.mealType = 'TYPE_ALL';
+      this.filters.text = '';
+      this.filters.searchInRecipe = false;
       this.$emit('randomSearchRequest');
     }
   }

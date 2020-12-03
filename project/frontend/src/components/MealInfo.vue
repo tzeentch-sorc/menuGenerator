@@ -22,7 +22,7 @@
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Калорий в порции</md-table-cell>
-                    <md-table-cell>{{additional.calories}} ккал</md-table-cell>
+                    <md-table-cell>{{additional.calories}} кал</md-table-cell>
                   </md-table-row>
                   <md-table-row>
                     <md-table-cell>Вес порции</md-table-cell>
