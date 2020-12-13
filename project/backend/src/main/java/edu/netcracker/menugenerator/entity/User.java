@@ -1,11 +1,15 @@
 package edu.netcracker.menugenerator.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -49,6 +53,14 @@ public class User {
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Profile profile;
+
+	@OneToMany(mappedBy = "user")
+	@JsonManagedReference
+	private List<Menu> savedMenus = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Preference> preferenceList = new ArrayList<>();
 
 	public User(String username, String email, String password) {
 		this.username = username;

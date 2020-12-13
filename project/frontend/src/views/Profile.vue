@@ -15,29 +15,35 @@
 
             <md-list-item @click="setState(1)">
               <md-icon>rule</md-icon>
-              <span class="md-list-item-text">Черный список</span>
+              <span class="md-list-item-text">Предпочтения</span>
             </md-list-item>
 
             <md-list-item @click="setState(2)">
-              <md-icon>favorite</md-icon>
-              <span class="md-list-item-text">Сохраненные меню</span>
+              <md-icon>history</md-icon>
+              <span class="md-list-item-text">Ваши меню</span>
             </md-list-item>
           </md-list>
         </md-app-drawer>
         <md-app-content>
           <ParamTab v-if="curState === 0"/>
+          <Preferences v-if="curState === 1"/>
+          <SavedMenuTab v-if="curState === 2"/>
         </md-app-content>
       </md-app>
     </div>
-
+    <back-to-top text="Back to top" visibleoffset="500" bottom="5%" right="15%">
+      <md-icon>arrow_upward</md-icon>
+    </back-to-top>
   </div>
 </template>
 
 <script>
 import ParamTab from "@/components/ParamTab";
+import SavedMenuTab from "@/components/SavedMenuTab";
+import Preferences from "@/components/Prefernces";
 export default {
   name: 'Profile',
-  components: {ParamTab},
+  components: {Preferences, SavedMenuTab, ParamTab},
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -60,18 +66,19 @@ export default {
   methods: {
     setState(state){
       this.curState = state;
+    },
+    getPr(){
+      this.$store.dispatch('profileModule/getProfile', this.currentUser.id);
     }
+  },
+  beforeMount() {
+    this.getPr();
   }
 };
 </script>
 <style lang="scss" scoped>
-.container{
-  margin-top: 5%;
-  max-height: 80%;
-  min-height: 50%;
-  max-width: 55%;
-}
+
 .md-app-drawer{
-  max-width: 25%;
+  max-width: 20%;
 }
 </style>
