@@ -5,5 +5,5 @@ import edu.netcracker.menugenerator.entity.Profile;
 public interface ProfileService {
     Profile getByUserId(long userId);
 
-    Profile UpdateByUserId(long userId, String profileStr);
+    Profile updateByUserId(long userId, String profileStr);
 }

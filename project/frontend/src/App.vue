@@ -9,14 +9,17 @@
             alt="На главную"
         />
       </router-link>
+      <router-link to="/">
+        <md-button>Поиск</md-button>
+      </router-link>
+      <router-link v-if="currentUser" to="/menu/current">
+        <md-button>Текущее Меню</md-button>
+      </router-link>
       <router-link v-if="showAdminBoard" to="/admin">
         <md-button>Пользователи</md-button>
       </router-link>
       <router-link v-if="showModeratorBoard" to="/mod">
         <md-button>Рецепты</md-button>
-      </router-link>
-      <router-link v-if="currentUser" to="/user">
-        <md-button>Меню</md-button>
       </router-link>
       <div v-if="!currentUser" class="md-toolbar-section-end">
           <router-link to="/register" class="nav-link">

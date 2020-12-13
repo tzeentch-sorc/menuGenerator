@@ -11,13 +11,4 @@ import edu.netcracker.menugenerator.entity.Meal;
 
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long>, JpaSpecificationExecutor<Meal> {
-    Slice<Meal> findAllByRecipeIgnoreCaseContaining(String recipe, Pageable pageable);
-
-    Slice<Meal> findAllByNameIgnoreCaseContaining(String name, Pageable pageable);
-
-    Slice<Meal> findAllByNameContainingIgnoreCaseAndType(String name, MealType type, Pageable pageable);
-
-    Slice<Meal> findAllByRecipeIgnoreCaseContainingAndType(String name, MealType type, Pageable pageable);
-
-    Slice<Meal> findAllByType(MealType type, Pageable pageable);
 }

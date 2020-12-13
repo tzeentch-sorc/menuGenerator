@@ -35,7 +35,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile UpdateByUserId(long userId, String profileStr) {
+    public Profile updateByUserId(long userId, String profileStr) {
         //TODO add error handling
         ProfileDto profileDto = jsonService.parseProfileDto(profileStr);
         Optional<User> userOptional = userRepository.findById(userId);

@@ -1,7 +1,7 @@
 <template>
   <div class="md-layout">
     <div class="md-layout-item">
-        <md-field>
+        <md-field md-clearable>
           <label>Поиск</label>
           <md-input v-model="filters.text"></md-input>
           <span class="md-helper-text">Найдите рецепт по душе здесь</span>

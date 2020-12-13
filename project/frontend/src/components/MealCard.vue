@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="item">
     <MealInfo v-if="showDialog" :mealItem="parentData" :additional="item" @closeInfo="showDialog = false"/>
     <md-card md-with-hover @click.native="openDialog">
       <md-ripple>
@@ -7,8 +7,15 @@
           <img :src="parentData.picture">
         </md-card-media>
         <md-card-header>
-          <div class="md-title">{{parentData.name}} </div>
+          <md-toolbar class="md-transparent" md-elevation="0">
+            <div class="md-title">{{parentData.name}} </div>
+            <md-subheader>
+              Тип: {{getType(parentData.type)}}
+            </md-subheader>
+          </md-toolbar>
+
         </md-card-header>
+
         <md-card-content>
           <MealStatsTable :mealItem="parentData"/>
         </md-card-content>
@@ -45,6 +52,15 @@ export default {
             this.loadedItem = true;
           }
       )
+    },
+    getType(typeString){
+      switch (typeString){
+        case "TYPE_BREAKFAST": return "Завтрак";
+        case "TYPE_DINNER": return "Обед";
+        case "TYPE_SUPPER": return "Ужин";
+        case "TYPE_DESSERT": return "Десерт";
+        case "TYPE_ADDITIONAL": return "Дополнительно";
+      }
     }
   }
 }
@@ -52,8 +68,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .md-card {
-  width: 250px;
   margin: 5px 10px 15px;
   vertical-align: top;
+}
+.item{
+  width: 270px;
 }
 </style>

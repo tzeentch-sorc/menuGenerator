@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="profile" v-if="currentProfile">
     <div>
         <span class="md-title">
           Параметры профиля
@@ -183,12 +183,7 @@ export default {
         this.profile.activity = this.currentProfile.activity;
       }
     },
-    getPr(){
-      this.$store.dispatch('profileModule/getProfile', this.currentUser.id);
-    }
-  },
-  mounted() {
-    this.getPr();
+
   }
 }
 

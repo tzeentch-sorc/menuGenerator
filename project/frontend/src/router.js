@@ -53,10 +53,10 @@ export const router = new Router({
       component: () => import('./views/BoardModerator.vue')
     },
     {
-      path: '/user',
-      name: 'user',
+      path: '/menu/current',
+      name: 'currentMenuBoard',
       // lazy-loaded
-      component: () => import('./views/BoardUser.vue')
+      component: () => import('./views/CurrentMenuBoard.vue')
     }
   ]
 });

@@ -789,7 +789,7 @@ COPY public.user_roles (user_id, role_id) FROM stdin;
 -- Data for Name: user_to_meal_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.user_to_meal_list (user_id, meal_id, "isBanned") FROM stdin;
+COPY public.user_to_meal_list (user_id, meal_id, banned) FROM stdin;
 \.
 
 

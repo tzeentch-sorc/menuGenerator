@@ -23,7 +23,7 @@ public class ProfileController {
 
     @PostMapping(value = "/set/{id}")
     public ResponseEntity<?> setProfileById(@PathVariable(name = "id") long id, @RequestParam String profile) {
-            return ResponseEntity.ok(mapper.map(profileService.UpdateByUserId(id, profile), ProfileDto.class));
+            return ResponseEntity.ok(mapper.map(profileService.updateByUserId(id, profile), ProfileDto.class));
     }
 
     @PostMapping(value = "/get/{id}")

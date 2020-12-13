@@ -33,12 +33,12 @@ public class AuthController {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		return ResponseEntity.ok(authService.signin(loginRequest));
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 		try {
 			MessageResponse msg = authService.signup(signUpRequest);
 			if(msg.isOk()){

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
-@RequestMapping("/api/meals")
+@RequestMapping("/api/meal")
 public class MealController {
     private final MealService mealService;
     private final Mapper mapper;
@@ -36,7 +36,7 @@ public class MealController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<?> getAllMeals(@RequestParam(required = false) String filters, Pageable pageable) {
         Slice<MealDto> meals = mealService.getAllMeals(filters, pageable).map(
                 e -> mapper.map(e, MealDto.class)
