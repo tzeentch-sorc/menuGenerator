@@ -46,15 +46,23 @@
         </md-tabs>
       </md-dialog-content>
       <md-dialog-actions>
-        <md-button class="md-primary" @click="closeInfo">Закрыть</md-button>
+        <md-button v-if="currentUser" class="md-primary" @click="add(mealItem.id, currentUser.id, false)">В избранное</md-button>
+        <md-button v-if="currentUser" class="md-primary" @click="add(mealItem.id, currentUser.id, true)">В ЧС</md-button>
+        <md-button v-if="currentUser" class="md-primary" @click="remove(mealItem.id, currentUser.id)">Удалить из списков</md-button>
+        <md-button class="md-primary md-accent" @click="closeInfo">Закрыть</md-button>
       </md-dialog-actions>
     </md-dialog>
+    <md-snackbar md-position="center" md-duration="4000" :md-active.sync="showSnackbar" md-persistent>
+      <span>Connection timeout. Showing limited messages!</span>
+      <md-button class="md-primary" @click="showSnackbar = false">Retry</md-button>
+    </md-snackbar>
   </div>
 </template>
 
 <script>
 import MealStatsTable from "@/components/MealStatsTable";
 import IngredientTable from "@/components/IngredientTable";
+import PreferencesService from "@/services/preferences.service";
 export default {
   name: "MealInfo",
   components: {IngredientTable, MealStatsTable},
@@ -62,9 +70,15 @@ export default {
     mealItem: Object,
     additional: Object
   },
+  computed:{
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
   data() {
     return {
       showDialog: false,
+      showSnackbar: false
     };
   },
   mounted() {
@@ -74,6 +88,12 @@ export default {
     closeInfo: function(){
       this.$emit('closeInfo', {});
       this.showDialog = false;
+    },
+    add(mealId, userId, ban){
+      PreferencesService.addPref(userId, mealId, ban).then(resp => alert(resp.data.message));
+    },
+    remove(mealId, userId){
+      PreferencesService.deletePref(mealId, userId).then(resp => alert(resp.data.message));
     }
   }
 };

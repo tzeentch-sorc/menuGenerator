@@ -7,4 +7,8 @@
 
 
     </configuration>
+    <mapping wildcard="false" map-null="false" map-id="test">
+        <class-a>edu.netcracker.menugenerator.entity.Meal</class-a>
+        <class-b>edu.netcracker.menugenerator.dto.MealDto</class-b>
+    </mapping>
 </mappings>
