@@ -19,9 +19,9 @@ import edu.netcracker.menugenerator.dto.request.SignupRequest;
 import edu.netcracker.menugenerator.dto.response.MessageResponse;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"${menuGenerator.cors.allowedOrigin}"}, maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthController {
 

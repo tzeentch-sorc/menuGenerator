@@ -16,9 +16,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
+@CrossOrigin(origins = {"${menuGenerator.cors.allowedOrigin}"}, maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
-@RequestMapping("/api/menu")
+@RequestMapping("/menu")
 @Slf4j
 public class MenuController {
 
@@ -46,9 +46,6 @@ public class MenuController {
     public ResponseEntity<?> getMenuById(@PathVariable long id){
         try {
             Menu menu = menuService.getMenuById(id);
-//            if(menu.isCurrent())
-//                return ResponseEntity.ok(mapper.map(menu, MenuDtoAdditional.class));
-//            else
                 return ResponseEntity.ok(mapper.map(menu, MenuDto.class));
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();//TODO fix this

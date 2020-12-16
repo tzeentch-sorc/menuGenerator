@@ -11,12 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
+@CrossOrigin(origins = {"${menuGenerator.cors.allowedOrigin}"}, maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
-@RequestMapping("/api/meal")
+@RequestMapping("/meal")
 public class MealController {
     private final MealService mealService;
     private final Mapper mapper;

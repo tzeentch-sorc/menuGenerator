@@ -21,10 +21,7 @@ import edu.netcracker.menugenerator.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		// securedEnabled = true,
-		// jsr250Enabled = true,
-		prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @NoArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -63,8 +60,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/meal/**").permitAll()
+			.authorizeRequests()
+				.antMatchers("/auth/**",
+						"/meal/**",
+						"/v2/api-docs",
+						"/configuration/ui",
+						"/swagger-resources/**",
+						"/configuration/security",
+						"/swagger-ui.html",
+						"/webjars/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
