@@ -56,7 +56,7 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal getById(long id) throws NotFoundException{
         return mealRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Meal by id: " + id + "not found.")
+                () -> new NotFoundException("Meal by id: " + id + " not found.")
         );
     }
 
@@ -66,7 +66,7 @@ public class MealServiceImpl implements MealService {
         Random r = new Random();
         long id = r.nextInt((int)max-1)+1;
         return mealRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Meal by id: " + id + "not found.")
+                () -> new NotFoundException("Meal by id: " + id + " not found.")
         );
     }
 }

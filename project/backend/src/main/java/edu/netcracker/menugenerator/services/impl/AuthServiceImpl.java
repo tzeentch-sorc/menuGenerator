@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public MessageResponse signup(SignupRequest signupRequest){
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            new MessageResponse("Error: Username is already taken!", false);
+            return new MessageResponse("Error: Username is already taken!", false);
         }
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {

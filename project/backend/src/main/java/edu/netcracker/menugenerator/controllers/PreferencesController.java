@@ -5,6 +5,8 @@ import edu.netcracker.menugenerator.dto.PreferenceDto;
 import edu.netcracker.menugenerator.dto.response.MessageResponse;
 import edu.netcracker.menugenerator.entity.Preference;
 import edu.netcracker.menugenerator.services.PreferenceService;
+import edu.netcracker.menugenerator.util.exceptions.AlreadyExistException;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,13 @@ public class PreferencesController {
 
     @PostMapping(value = "/add/{ban}")
     public ResponseEntity<?> add(@RequestParam long id, @RequestParam long userId, @PathVariable(name = "ban") boolean ban) {
-        Preference preference = preferenceService.add(id, userId, ban);
-        if(preference == null) return ResponseEntity.ok(new MessageResponse("Уже добавлено один из списков.", true));
+        Preference preference = null;
+        try {
+            preference = preferenceService.add(id, userId, ban);
+        } catch (AlreadyExistException e) {
+            log.info(e.getMessage());
+            return ResponseEntity.ok(new MessageResponse("Уже добавлено один из списков.", true));
+        }
         return ResponseEntity.ok(mapper.map(preference, PreferenceDto.class));
     }
 

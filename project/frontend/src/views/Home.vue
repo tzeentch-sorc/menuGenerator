@@ -4,7 +4,7 @@
       <MealsSearch v-on:searchRequest="onRequestReceived" v-on:randomSearchRequest="onRandom"/>
       <md-divider/>
       <div v-masonry transition-duration="0.15s" item-selector=".item" column-width>
-        <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" />
+        <MealCard v-masonry-tile class="item" v-for="mealItem in content" v-bind:key="mealItem.id" :parentData="mealItem" :buttonDelete="false"/>
       </div>
       <div v-if="content.length" v-observe-visibility="handleBottom">
         <md-progress-bar v-if="this.hasNextPage" md-mode="indeterminate"/>

@@ -7,6 +7,7 @@ import edu.netcracker.menugenerator.entity.Menu;
 import edu.netcracker.menugenerator.services.MenuService;
 import edu.netcracker.menugenerator.util.CalculationUtils;
 import edu.netcracker.menugenerator.util.PaginationUtil;
+import edu.netcracker.menugenerator.util.exceptions.MenuNotFoundException;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
@@ -48,18 +49,21 @@ public class MenuController {
             Menu menu = menuService.getMenuById(id);
                 return ResponseEntity.ok(mapper.map(menu, MenuDto.class));
         } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();//TODO fix this
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());//TODO fix this
         }
     }
 
     @PostMapping("/current/set")
     public ResponseEntity<?> setCurrentById(@RequestParam long id, @RequestParam long userId){
-        Menu menu = menuService.setCurrent(id, userId);
-        if(menu == null)
+        try {
+            Menu menu = menuService.setCurrent(id, userId);
+            MenuDtoShort menuDto = mapper.map(menu, MenuDtoShort.class);
+            menuDto.setMealsLength(menu.getMealsInMenu().size());
+            return ResponseEntity.ok(menuDto);
+        } catch (MenuNotFoundException e){
             return ResponseEntity.ok(new MessageResponse("Deleted unsaved menu" ,true));
-        MenuDtoShort menuDto = mapper.map(menu, MenuDtoShort.class);
-        menuDto.setMealsLength(menu.getMealsInMenu().size());
-        return ResponseEntity.ok(menuDto);
+        }
     }
 
     @PostMapping("/current/get")
@@ -70,15 +74,20 @@ public class MenuController {
     @PostMapping("/update")
     public ResponseEntity<?> saveMenu(@RequestParam String name, @RequestParam long id,
                                       @RequestParam String description){
-        return ResponseEntity.ok(mapper.map(menuService.updateMenu(id, name, description), MenuDtoShort.class));
+        try {
+            return ResponseEntity.ok(mapper.map(menuService.updateMenu(id, name, description), MenuDtoShort.class));
+        } catch (MenuNotFoundException e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false));
+        }
+
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> removeById(@PathVariable long id){
         menuService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Deleted successfully");
     }
-
 
     @PostMapping("/generate")
     public ResponseEntity<?> generate(@RequestParam long userId){

@@ -28,7 +28,7 @@
 export default {
   name: "IngredientTable",
   props:{
-    item: Object
+    item: Array
   },
   data() {
     return {

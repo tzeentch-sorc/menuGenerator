@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PreferenceRepository extends JpaRepository<Preference, Long> {
     Slice<Preference> findAllByUserId(long userId, Pageable pageable);
 
-    Optional<Preference> findByMealIdAndUserId(long mealId, long userId);
+    Preference findByMealIdAndUserId(long mealId, long userId);
 
     void removeByMealIdAndUserId(long mealId, long userId);
 }

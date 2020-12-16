@@ -9,6 +9,7 @@ import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.services.MenuService;
 import edu.netcracker.menugenerator.util.CalculationUtils;
 import edu.netcracker.menugenerator.util.MealType;
+import edu.netcracker.menugenerator.util.exceptions.MenuNotFoundException;
 import edu.netcracker.menugenerator.util.specifications.meal.MealSpecificationsBuilder;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +45,8 @@ public class MenuServiceImpl implements MenuService {
         try {
             return menuRepository.findById(id).get();
         } catch (Exception e){
-            throw new NotFoundException("menu not found");
+            throw new NotFoundException("Menu by id: " + id + " not found.");
         }
-        //TODO rework
     }
 
     @Override
@@ -59,9 +59,9 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu setCurrent(long id, long userId) {
+    public Menu setCurrent(long id, long userId) throws MenuNotFoundException {
         Menu current = getCurrent(userId);
-        if(current.getName() == null || current.getDescription() == null)
+        if(isSaved(current))
         {
             menuRepository.delete(current);
             current = null;
@@ -71,33 +71,35 @@ public class MenuServiceImpl implements MenuService {
         }
 
         Menu newMenu = null;
-        try { //TODO fix this
+        try {
             newMenu = getMenuById(id);
         } catch (NotFoundException e) {
-            e.printStackTrace();
-            return null;
+            log.error(e.getMessage());
+            throw new MenuNotFoundException("Menu(" + id + ") of user(" + userId + ") not found");
         }
-        if(newMenu.getName() != null && newMenu.getDescription() != null) {
+        if(isSaved(newMenu)) {
             newMenu.setCurrent(true);
             menuRepository.save(newMenu);
         }
         return current;
     }
 
+    private boolean isSaved(Menu menu){
+        return menu.getName() != null && menu.getDescription() != null;
+    }
+
     @Override
     public Menu getCurrent(long id) {
         Menu menu = menuRepository.findMenuByCurrentIsTrueAndUserId(id).orElse(null);
-        try{
-            menu.getName();
-        } catch (NullPointerException e){
+        if(menu == null)
             menu = generateMenu(id);
-        }
         return menu;
     }
 
     @Override
-    public Menu updateMenu(long id, String name, String description) {
-        Menu menu = menuRepository.findById(id).orElse(null);//TODO fix this
+    public Menu updateMenu(long id, String name, String description) throws  MenuNotFoundException{
+        Menu menu = menuRepository.findById(id).orElse(null);
+        if(menu == null) throw new MenuNotFoundException("Menu(" + id + ") not found");
         menu.setName(name);
         menu.setDescription(description);
         return menuRepository.save(menu);

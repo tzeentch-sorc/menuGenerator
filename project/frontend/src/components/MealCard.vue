@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <MealInfo v-if="showDialog" :mealItem="parentData" :additional="item" @closeInfo="showDialog = false"/>
+    <MealInfo v-if="showDialog" :mealItem="parentData" :additional="item" @closeInfo="close" :buttonDelete="buttonDelete"/>
     <md-card md-with-hover @click.native="openDialog">
       <md-ripple>
         <md-card-media>
@@ -13,9 +13,7 @@
               Тип: {{getType(parentData.type)}}
             </md-subheader>
           </md-toolbar>
-
         </md-card-header>
-
         <md-card-content>
           <MealStatsTable :mealItem="parentData"/>
         </md-card-content>
@@ -31,7 +29,8 @@ export default {
   name: 'MealCard',
   components: {MealStatsTable, MealInfo},
   props:{
-    parentData: Object
+    parentData: Object,
+    buttonDelete: Boolean
   },
   data: () => ({
     showDialog: false,
@@ -60,6 +59,12 @@ export default {
         case "TYPE_SUPPER": return "Ужин";
         case "TYPE_DESSERT": return "Десерт";
         case "TYPE_ADDITIONAL": return "Дополнительно";
+      }
+    },
+    close(arg){
+      this.showDialog = false;
+      if(arg != null){
+        this.$emit("itemDeleted", this.parentData.id);
       }
     }
   }

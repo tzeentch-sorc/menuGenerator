@@ -91,9 +91,9 @@ export default {
             error => {
               this.loading = false;
               this.message =
-                (error.response && error.response.data && error.response.data.message) ||
-                error.message ||
-                error.toString();
+                  (error.response && error.response.data && error.response.data.errorMessage) ||
+                  error.response.data.errorMessage ||
+                  error.toString();
             }
           );
         }

@@ -39,15 +39,13 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-		try {
 			MessageResponse msg = authService.signup(signUpRequest);
 			if(msg.isOk()){
 				return ResponseEntity.ok(msg);
-			} else return ResponseEntity.badRequest().body(msg);
-		}
-		catch (Exception e){
-			log.info(Arrays.toString(e.getStackTrace()));
-			return ResponseEntity.badRequest().body(new MessageResponse("Critical fail", false));
-		}
+			} else{
+				log.error(msg.getMessage());
+				return ResponseEntity.badRequest().body(msg);
+			}
+
 	}
 }

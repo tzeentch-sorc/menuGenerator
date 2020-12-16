@@ -5,6 +5,7 @@ import edu.netcracker.menugenerator.dto.MealDto;
 import edu.netcracker.menugenerator.services.MealService;
 import edu.netcracker.menugenerator.util.PaginationUtil;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"${menuGenerator.cors.allowedOrigin}"}, maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
 @RequestMapping("/meal")
+@Slf4j
 public class MealController {
     private final MealService mealService;
     private final Mapper mapper;
@@ -33,6 +35,7 @@ public class MealController {
         try {
             return ResponseEntity.ok(mapper.map(mealService.getById(id), MealAdditionalDto.class));
         } catch (NotFoundException e) {
+            log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
@@ -50,6 +53,7 @@ public class MealController {
         try {
             return ResponseEntity.ok().body(mapper.map(mealService.getRandom(), MealDto.class));
         } catch (NotFoundException e) {
+            log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }

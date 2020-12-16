@@ -46,15 +46,15 @@
         </md-tabs>
       </md-dialog-content>
       <md-dialog-actions>
-        <md-button v-if="currentUser" class="md-primary" @click="add(mealItem.id, currentUser.id, false)">В избранное</md-button>
-        <md-button v-if="currentUser" class="md-primary" @click="add(mealItem.id, currentUser.id, true)">В ЧС</md-button>
-        <md-button v-if="currentUser" class="md-primary" @click="remove(mealItem.id, currentUser.id)">Удалить из списков</md-button>
-        <md-button class="md-primary md-accent" @click="closeInfo">Закрыть</md-button>
+        <md-button v-if="currentUser && !buttonDelete" class="md-primary" @click="add(mealItem.id, currentUser.id, false)">В избранное</md-button>
+        <md-button v-if="currentUser && !buttonDelete" class="md-primary" @click="add(mealItem.id, currentUser.id, true)">В черный список</md-button>
+        <md-button v-if="currentUser && buttonDelete" class="md-primary" @click="remove(mealItem.id, currentUser.id)">Удалить из списка</md-button>
+        <md-button class="md-primary md-accent" @click="closeInfo(null)">Закрыть</md-button>
       </md-dialog-actions>
     </md-dialog>
-    <md-snackbar md-position="center" md-duration="4000" :md-active.sync="showSnackbar" md-persistent>
-      <span>Connection timeout. Showing limited messages!</span>
-      <md-button class="md-primary" @click="showSnackbar = false">Retry</md-button>
+    <md-snackbar md-position="center" md-duration="5000" :md-active.sync="showSnackbar" md-persistent>
+      <span>{{result}}</span>
+      <md-button class="md-primary" @click="showSnackbar = false">Закрыть</md-button>
     </md-snackbar>
   </div>
 </template>
@@ -68,7 +68,8 @@ export default {
   components: {IngredientTable, MealStatsTable},
   props:{
     mealItem: Object,
-    additional: Object
+    additional: Object,
+    buttonDelete: Boolean
   },
   computed:{
     currentUser() {
@@ -78,22 +79,40 @@ export default {
   data() {
     return {
       showDialog: false,
-      showSnackbar: false
+      showSnackbar: false,
+      result: ''
     };
   },
   mounted() {
     this.showDialog = true;
   },
   methods: {
-    closeInfo: function(){
-      this.$emit('closeInfo', {});
+    closeInfo: function(arg){
+      this.$emit('closeInfo', arg);
       this.showDialog = false;
+      this.showSnackbar = false;
     },
     add(mealId, userId, ban){
-      PreferencesService.addPref(userId, mealId, ban).then(resp => alert(resp.data.message));
+      PreferencesService.addPref(userId, mealId, ban).then(resp =>
+          {
+            if(resp && resp.data.message){
+              this.result = resp.data.message;
+            } else {
+              this.result = ban ? "Добавлено в черный список!" : "Добавлено в избранное!";
+            }
+            this.showSnackbar = true;
+          }
+      );
     },
     remove(mealId, userId){
-      PreferencesService.deletePref(mealId, userId).then(resp => alert(resp.data.message));
+      PreferencesService.deletePref(mealId, userId).then(resp => {
+        if(resp && resp.data.message){
+          this.result = resp.data.message;
+        } else {
+          this.result ="Удалено!"
+        }
+        this.closeInfo({})
+      });
     }
   }
 };

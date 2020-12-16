@@ -9,11 +9,10 @@ import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.services.JsonService;
 import edu.netcracker.menugenerator.services.ProfileService;
 import edu.netcracker.menugenerator.util.CalculationUtils;
+import edu.netcracker.menugenerator.util.exceptions.ProfileNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,13 +34,12 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile updateByUserId(long userId, String profileStr) {
-        //TODO add error handling
+    public Profile updateByUserId(long userId, String profileStr) throws ProfileNotValidException{
         ProfileDto profileDto = jsonService.parseProfileDto(profileStr);
-        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userRepository.findById(userId).get();
         PfccDto stats = CalculationUtils.calcCalories(profileDto);
-        User user;
-        user = userOptional.orElse(null);
+        if(profileDto.getHeight() <= 0 || profileDto.getWeight() <= 0 || profileDto.getAge() <= 0)
+            throw new ProfileNotValidException("Some stats are below or equal to zero.");
         Profile profile = new Profile(
                 profileDto.getId(), profileDto.getHeight(), profileDto.getWeight(),
                 profileDto.getAge(), profileDto.isMale(), profileDto.getActivity(),

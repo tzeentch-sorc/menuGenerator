@@ -8,6 +8,8 @@ import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.repository.PreferenceRepository;
 import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.services.PreferenceService;
+import edu.netcracker.menugenerator.util.exceptions.AlreadyExistException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -36,9 +38,9 @@ public class PreferenceServiceImpl implements PreferenceService {
     }
 
     @Override
-    public Preference add(long mealId, long userId, boolean ban){
-        Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId).orElse(null);
-        if(preference != null) return null;
+    public Preference add(long mealId, long userId, boolean ban) throws AlreadyExistException {
+        Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId);
+        if(preference != null) throw new AlreadyExistException("Preference of user(" + userId + ") of meal(" + mealId +") already exist");
         preference = new Preference();
         User user = userRepository.findById(userId).get();
         Meal meal = mealRepository.findById(mealId).get();
@@ -50,9 +52,9 @@ public class PreferenceServiceImpl implements PreferenceService {
 
     @Override
     public MessageResponse remove(long mealId, long userId){
-        Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId).orElse(null);
-        if(preference == null) return new MessageResponse("Not in list, cannot remove", true);
+        Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId);
+        if(preference == null) return new MessageResponse("Выбранного блюда нет ни в одном из списков.", true);
         preferenceRepository.removeByMealIdAndUserId(mealId, userId);
-        return new MessageResponse("Removed", true);
+        return new MessageResponse("Удалено.", true);
     }
 }

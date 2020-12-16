@@ -66,7 +66,7 @@
             </div>
           </md-toolbar>
           <div class="md-layout item-content">
-            <MealCard class="item md-layout-item" v-for="mealItem in selected.mealsInMenu" v-bind:key="mealItem.id" :parentData="mealItem" />
+            <MealCard class="item md-layout-item" v-for="mealItem in selected.mealsInMenu" v-bind:key="mealItem.id" :parentData="mealItem" :buttonDelete="false"/>
           </div>
         </div>
       </div>
