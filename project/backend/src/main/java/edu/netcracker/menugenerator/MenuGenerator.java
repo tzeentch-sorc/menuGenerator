@@ -15,18 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootApplication
 @EnableTransactionManagement
 public class MenuGenerator {
-
-	private static final Logger log = LoggerFactory.getLogger(MenuGenerator.class);
-
 	public static void main(String[] args) {
 		SpringApplication.run(MenuGenerator.class, args);
 	}
-//	@Bean
-//	@Transactional
-//	public CommandLineRunner demo(ProfileRepository repository) {
-//		return (args) -> {
-////			Profile prof = repository.findFirstByUserId(1);
-////			log.info("profile: {}", repository.findFirstByUserId(1));
-//		};
-//	}
 }
