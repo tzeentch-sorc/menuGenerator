@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
-@RequestMapping("/api/preference")
+@RequestMapping("/preference")
 @Slf4j
 public class PreferencesController {
 
@@ -41,7 +41,7 @@ public class PreferencesController {
     @PostMapping(value = "/add/{ban}")
     public ResponseEntity<?> add(@RequestParam long id, @RequestParam long userId, @PathVariable(name = "ban") boolean ban) {
         Preference preference = preferenceService.add(id, userId, ban);
-        if(preference == null) return ResponseEntity.ok(new MessageResponse("Already in list", true));
+        if(preference == null) return ResponseEntity.ok(new MessageResponse("Уже добавлено один из списков.", true));
         return ResponseEntity.ok(mapper.map(preference, PreferenceDto.class));
     }
 

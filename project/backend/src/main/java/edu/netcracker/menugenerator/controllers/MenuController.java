@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = "X-Has-Next-Page")
 @RestController
-@RequestMapping("/api/menu")
+@RequestMapping("/menu")
 @Slf4j
 public class MenuController {
 
