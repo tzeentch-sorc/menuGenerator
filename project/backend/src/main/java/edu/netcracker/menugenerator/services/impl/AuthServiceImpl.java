@@ -14,6 +14,8 @@ import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.security.jwt.JwtUtils;
 import edu.netcracker.menugenerator.services.AuthService;
 import edu.netcracker.menugenerator.util.ERole;
+import edu.netcracker.menugenerator.util.exceptions.EmailTakenException;
+import edu.netcracker.menugenerator.util.exceptions.UsernameTakenException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -74,11 +76,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public MessageResponse signup(SignupRequest signupRequest){
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            return new MessageResponse("Error: Username is already taken!", false);
+            throw new UsernameTakenException("Registration fail: Username taken");
         }
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            return new MessageResponse("Error: Email is already in use!", false);
+            throw new EmailTakenException("Registration fail: Email taken");
         }
 
         User user = new User(signupRequest.getUsername(),
@@ -107,6 +109,6 @@ public class AuthServiceImpl implements AuthService {
         profile.setUser(user);
 
         userRepository.save(user);
-        return new MessageResponse("User registered successfully!", true);
+        return new MessageResponse("User registered successfully!");
     }
 }

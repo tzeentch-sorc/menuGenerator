@@ -43,12 +43,7 @@ public class PreferencesController {
     @PostMapping(value = "/add/{ban}")
     public ResponseEntity<?> add(@RequestParam long id, @RequestParam long userId, @PathVariable(name = "ban") boolean ban) {
         Preference preference = null;
-        try {
             preference = preferenceService.add(id, userId, ban);
-        } catch (AlreadyExistException e) {
-            log.info(e.getMessage());
-            return ResponseEntity.ok(new MessageResponse("Уже добавлено один из списков.", true));
-        }
         return ResponseEntity.ok(mapper.map(preference, PreferenceDto.class));
     }
 

@@ -1,14 +1,13 @@
 package edu.netcracker.menugenerator.services;
 
-import edu.netcracker.menugenerator.entity.Meal;
 import edu.netcracker.menugenerator.entity.Menu;
+import edu.netcracker.menugenerator.util.exceptions.MealNotFoundException;
 import edu.netcracker.menugenerator.util.exceptions.MenuNotFoundException;
-import javassist.NotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
 public interface MenuService {
-    Menu getMenuById(long id) throws NotFoundException;
+    Menu getMenuById(long id) throws MenuNotFoundException;
 
     Slice<Menu> getAll(long id, String name, Pageable pageable);
 

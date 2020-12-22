@@ -6,6 +6,7 @@ import edu.netcracker.menugenerator.util.MealType;
 import edu.netcracker.menugenerator.repository.MealRepository;
 import edu.netcracker.menugenerator.services.JsonService;
 import edu.netcracker.menugenerator.services.MealService;
+import edu.netcracker.menugenerator.util.exceptions.MealNotFoundException;
 import edu.netcracker.menugenerator.util.specifications.meal.MealSpecification;
 import edu.netcracker.menugenerator.util.specifications.meal.MealSpecificationsBuilder;
 import edu.netcracker.menugenerator.util.specifications.meal.SearchCriteria;
@@ -54,19 +55,19 @@ public class MealServiceImpl implements MealService {
         return mealRepository.findAll(specification, pageable);
     }
     @Override
-    public Meal getById(long id) throws NotFoundException{
+    public Meal getById(long id) throws MealNotFoundException {
         return mealRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Meal by id: " + id + " not found.")
+                () -> new MealNotFoundException("Meal by id: " + id + " not found.")
         );
     }
 
     @Override
-    public Meal getRandom() throws NotFoundException {
+    public Meal getRandom() throws MealNotFoundException {
         long max = mealRepository.count();
         Random r = new Random();
         long id = r.nextInt((int)max-1)+1;
         return mealRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Meal by id: " + id + " not found.")
+                () -> new MealNotFoundException("Meal by id: " + id + " not found.")
         );
     }
 }

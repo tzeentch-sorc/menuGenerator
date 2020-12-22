@@ -41,12 +41,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu getMenuById(long id) throws  NotFoundException{
-        try {
-            return menuRepository.findById(id).get();
-        } catch (Exception e){
-            throw new NotFoundException("Menu by id: " + id + " not found.");
-        }
+    public Menu getMenuById(long id) throws MenuNotFoundException{
+            return menuRepository.findById(id).orElseThrow(() -> new MenuNotFoundException("Menu by id: " + id + " not found."));
     }
 
     @Override
@@ -61,7 +57,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu setCurrent(long id, long userId) throws MenuNotFoundException {
         Menu current = getCurrent(userId);
-        if(isSaved(current))
+        if(!isSaved(current))
         {
             menuRepository.delete(current);
             current = null;
@@ -70,13 +66,7 @@ public class MenuServiceImpl implements MenuService {
             current = menuRepository.save(current);
         }
 
-        Menu newMenu = null;
-        try {
-            newMenu = getMenuById(id);
-        } catch (NotFoundException e) {
-            log.error(e.getMessage());
-            throw new MenuNotFoundException("Menu(" + id + ") of user(" + userId + ") not found");
-        }
+        Menu newMenu = getMenuById(id);
         if(isSaved(newMenu)) {
             newMenu.setCurrent(true);
             menuRepository.save(newMenu);
@@ -98,8 +88,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu updateMenu(long id, String name, String description) throws  MenuNotFoundException{
-        Menu menu = menuRepository.findById(id).orElse(null);
-        if(menu == null) throw new MenuNotFoundException("Menu(" + id + ") not found");
+        Menu menu = menuRepository.findById(id).orElseThrow(() -> new MenuNotFoundException("Menu(" + id + ") not found"));
         menu.setName(name);
         menu.setDescription(description);
         return menuRepository.save(menu);

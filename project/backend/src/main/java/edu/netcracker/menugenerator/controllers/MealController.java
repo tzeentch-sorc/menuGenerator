@@ -32,29 +32,17 @@ public class MealController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> getMealById(@PathVariable(name = "id") Long id) {
-        try {
-            return ResponseEntity.ok(mapper.map(mealService.getById(id), MealAdditionalDto.class));
-        } catch (NotFoundException e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok(mapper.map(mealService.getById(id), MealAdditionalDto.class));
     }
 
     @GetMapping
     public ResponseEntity<?> getAllMeals(@RequestParam(required = false) String filters, Pageable pageable) {
-        Slice<MealDto> meals = mealService.getAllMeals(filters, pageable).map(
-                e -> mapper.map(e, MealDto.class)
-        );
+        Slice<MealDto> meals = mealService.getAllMeals(filters, pageable).map(e -> mapper.map(e, MealDto.class));
         return ResponseEntity.ok().headers(PaginationUtil.generateSliceHttpHeaders(meals)).body(meals.getContent());
     }
 
     @GetMapping("/random")
     public ResponseEntity<?> getRandomMeal(){
-        try {
-            return ResponseEntity.ok().body(mapper.map(mealService.getRandom(), MealDto.class));
-        } catch (NotFoundException e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok().body(mapper.map(mealService.getRandom(), MealDto.class));
     }
 }

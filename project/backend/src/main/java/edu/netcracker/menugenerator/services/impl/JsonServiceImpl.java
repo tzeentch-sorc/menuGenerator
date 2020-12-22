@@ -6,11 +6,14 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import edu.netcracker.menugenerator.dto.ProfileDto;
 import edu.netcracker.menugenerator.dto.MealFilters;
 import edu.netcracker.menugenerator.services.JsonService;
+import edu.netcracker.menugenerator.util.exceptions.JsonParsingException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@Slf4j
 public class JsonServiceImpl implements JsonService {
 
     @Override
@@ -31,8 +34,8 @@ public class JsonServiceImpl implements JsonService {
         try {
             return objectMapper.readValue(src, MealFilters.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
+            log.error("Parsing failure: {}", (Object) e.getStackTrace());
+            throw new JsonParsingException();
         }
     }
 
@@ -43,8 +46,8 @@ public class JsonServiceImpl implements JsonService {
         try {
             return objectMapper.readValue(src, ProfileDto.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
+            log.error("Parsing failure: {}", (Object) e.getStackTrace());
+            throw new JsonParsingException();
         }
     }
 }

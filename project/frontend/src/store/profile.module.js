@@ -29,7 +29,7 @@ export const profileModule = {
                     return Promise.resolve(response);
                 },
                 error => {
-                    commit('profileNotFound');
+                    commit('profileNotUpdated');
                     return Promise.reject(error);
                 }
             )
@@ -39,8 +39,9 @@ export const profileModule = {
         profileFound(state, profile) {
             state.profile = profile;
         },
-        profileNotFound(state){
+        profileNotFound(state, profile){
             state.profile = null;
-        }
+        },
+        profileNotUpdated(state){}
     }
 };

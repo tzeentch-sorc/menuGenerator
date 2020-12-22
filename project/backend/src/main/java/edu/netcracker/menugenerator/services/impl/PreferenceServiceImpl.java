@@ -9,6 +9,8 @@ import edu.netcracker.menugenerator.repository.PreferenceRepository;
 import edu.netcracker.menugenerator.repository.UserRepository;
 import edu.netcracker.menugenerator.services.PreferenceService;
 import edu.netcracker.menugenerator.util.exceptions.AlreadyExistException;
+import edu.netcracker.menugenerator.util.exceptions.MealNotFoundException;
+import edu.netcracker.menugenerator.util.exceptions.UserNotFoundException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class PreferenceServiceImpl implements PreferenceService {
-    private PreferenceRepository preferenceRepository;
-    private UserRepository userRepository;
-    private MealRepository mealRepository;
+    private final PreferenceRepository preferenceRepository;
+    private final UserRepository userRepository;
+    private final MealRepository mealRepository;
 
     @Autowired
     public PreferenceServiceImpl(PreferenceRepository preferenceRepository, UserRepository userRepository, MealRepository mealRepository){
@@ -42,8 +44,8 @@ public class PreferenceServiceImpl implements PreferenceService {
         Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId);
         if(preference != null) throw new AlreadyExistException("Preference of user(" + userId + ") of meal(" + mealId +") already exist");
         preference = new Preference();
-        User user = userRepository.findById(userId).get();
-        Meal meal = mealRepository.findById(mealId).get();
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        Meal meal = mealRepository.findById(mealId).orElseThrow(() -> new MealNotFoundException("Meal not found"));
         preference.setBanned(ban);
         preference.setMeal(meal);
         preference.setUser(user);
@@ -53,8 +55,8 @@ public class PreferenceServiceImpl implements PreferenceService {
     @Override
     public MessageResponse remove(long mealId, long userId){
         Preference preference = preferenceRepository.findByMealIdAndUserId(mealId, userId);
-        if(preference == null) return new MessageResponse("Выбранного блюда нет ни в одном из списков.", true);
+        if(preference == null) return new MessageResponse("Выбранного блюда нет ни в одном из списков.");
         preferenceRepository.removeByMealIdAndUserId(mealId, userId);
-        return new MessageResponse("Удалено.", true);
+        return new MessageResponse("Удалено.");
     }
 }

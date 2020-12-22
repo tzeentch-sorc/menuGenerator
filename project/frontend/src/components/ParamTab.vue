@@ -118,8 +118,12 @@
             Отмена
           </md-button>
         </div>
-
       </div>
+
+    <md-snackbar md-position="center" md-duration="5000" :md-active.sync="showSnackbar" md-persistent>
+      <span>{{result}}</span>
+      <md-button class="md-primary" @click="this.showSnackbar = false">Закрыть</md-button>
+    </md-snackbar>
   </div>
 </template>
 <script>
@@ -127,7 +131,6 @@ import ProfileShort from "@/models/profileShort";
 
 export default {
   name: 'ParamTab',
-
   computed:{
     currentUser() {
       return this.$store.state.auth.user;
@@ -146,7 +149,9 @@ export default {
     ],
     coefs:[1.2, 1.375, 1.55, 1.7, 1.9],
     profile: new ProfileShort('', '', '', '', '', ''),
-    isRedacting: false
+    isRedacting: false,
+    showSnackbar: false,
+    result: ''
   }),
   methods: {
     getActivity(coef){
@@ -169,6 +174,12 @@ export default {
       }).then(
           () => {
             this.redact(false);
+          }
+      ).catch(
+          err => {
+            this.redact(false);
+            this.showSnackbar = true;
+            this.result = err.response.data.message;
           }
       );
     },

@@ -38,8 +38,9 @@ public class ProfileServiceImpl implements ProfileService {
         ProfileDto profileDto = jsonService.parseProfileDto(profileStr);
         User user = userRepository.findById(userId).get();
         PfccDto stats = CalculationUtils.calcCalories(profileDto);
-        if(profileDto.getHeight() <= 0 || profileDto.getWeight() <= 0 || profileDto.getAge() <= 0)
-            throw new ProfileNotValidException("Some stats are below or equal to zero.");
+        if(profileDto.getHeight() <= 0 || profileDto.getWeight() <= 0 || profileDto.getAge() <= 0 ||
+            profileDto.getHeight() >= 300 || profileDto.getWeight() >= 200 || profileDto.getAge() >= 100)
+            throw new ProfileNotValidException("Profile is not valid");
         Profile profile = new Profile(
                 profileDto.getId(), profileDto.getHeight(), profileDto.getWeight(),
                 profileDto.getAge(), profileDto.isMale(), profileDto.getActivity(),

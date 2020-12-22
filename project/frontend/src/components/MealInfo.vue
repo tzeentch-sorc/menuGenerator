@@ -102,6 +102,11 @@ export default {
             }
             this.showSnackbar = true;
           }
+      ).catch(
+          err => {
+            this.result = err.response.data.message;
+            this.showSnackbar = true;
+          }
       );
     },
     remove(mealId, userId){

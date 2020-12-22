@@ -45,25 +45,16 @@ public class MenuController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> getMenuById(@PathVariable long id){
-        try {
-            Menu menu = menuService.getMenuById(id);
-                return ResponseEntity.ok(mapper.map(menu, MenuDto.class));
-        } catch (NotFoundException e) {
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().body(e.getMessage());//TODO fix this
-        }
+                return ResponseEntity.ok(mapper.map( menuService.getMenuById(id), MenuDto.class));
     }
 
     @PostMapping("/current/set")
     public ResponseEntity<?> setCurrentById(@RequestParam long id, @RequestParam long userId){
-        try {
             Menu menu = menuService.setCurrent(id, userId);
+            if(menu == null) return ResponseEntity.ok(new MessageResponse("Deleted unsaved menu"));
             MenuDtoShort menuDto = mapper.map(menu, MenuDtoShort.class);
             menuDto.setMealsLength(menu.getMealsInMenu().size());
             return ResponseEntity.ok(menuDto);
-        } catch (MenuNotFoundException e){
-            return ResponseEntity.ok(new MessageResponse("Deleted unsaved menu" ,true));
-        }
     }
 
     @PostMapping("/current/get")
@@ -74,13 +65,7 @@ public class MenuController {
     @PostMapping("/update")
     public ResponseEntity<?> saveMenu(@RequestParam String name, @RequestParam long id,
                                       @RequestParam String description){
-        try {
-            return ResponseEntity.ok(mapper.map(menuService.updateMenu(id, name, description), MenuDtoShort.class));
-        } catch (MenuNotFoundException e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false));
-        }
-
+        return ResponseEntity.ok(mapper.map(menuService.updateMenu(id, name, description), MenuDtoShort.class));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -92,7 +77,7 @@ public class MenuController {
     @PostMapping("/generate")
     public ResponseEntity<?> generate(@RequestParam long userId){
         Menu menu = menuService.generateMenu(userId);
-        log.info("" + CalculationUtils.calcTotalCalories(menu.getMealsInMenu()));
+        log.info("{}", CalculationUtils.calcTotalCalories(menu.getMealsInMenu()));
         return ResponseEntity.ok(mapper.map(menu, MenuDto.class));
     }
 }

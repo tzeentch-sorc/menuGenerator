@@ -26,13 +26,7 @@ public class ProfileController {
 
     @PostMapping(value = "/set/{id}")
     public ResponseEntity<?> setProfileById(@PathVariable(name = "id") long id, @RequestParam String profile) {
-        try {
             return ResponseEntity.ok(mapper.map(profileService.updateByUserId(id, profile), ProfileDto.class));
-        } catch (ProfileNotValidException e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-
     }
 
     @PostMapping(value = "/get/{id}")
