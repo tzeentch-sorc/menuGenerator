@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:5002/api/meal';
+import baseUrl from '@/services/baseUrl';
+const API_URL =  baseUrl + '/api/meal';
 
 class MealService {
   getAll(pageNum, params){

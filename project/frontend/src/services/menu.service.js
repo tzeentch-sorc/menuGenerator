@@ -1,6 +1,7 @@
 import axios from 'axios';
 import authHeader from "@/services/auth-header";
-const API_URL = 'http://localhost:5002/api/menu';
+import baseUrl from "@/services/baseUrl";
+const API_URL = baseUrl + '/api/menu';
 
 class MenuService {
     getAll(pageNum, id, params){
